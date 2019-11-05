@@ -14,7 +14,9 @@ phases:
     - mvn install
 artifacts:
   files:
-  - ./target/chrisyouFF-Cloud.war
+  - target/*.jar
+  - appspec.yml
+  discard-paths: yes
 cache:
   paths:
   - '/root/.m2/**/*'

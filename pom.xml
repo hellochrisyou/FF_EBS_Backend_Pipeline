@@ -11,7 +11,7 @@
 	<groupId>com.chrisyouFF</groupId>
 	<artifactId>chrisyouFF</artifactId>
 	<version>Cloud</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging> 
 	<name>Server-FF</name>
 	<description>Demo project for Spring Boot</description>
 
