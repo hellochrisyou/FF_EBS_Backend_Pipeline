@@ -1,7 +1,8 @@
-package com.fantasy.football.domain.entity;
+package com.fantasy.football.dao.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,11 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fantasy.football.domain.AuditModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "player")
+@Entity(name = "Player")
 @Table(name = "player")
-public class Player implements  Serializable {
+public class Player extends AuditModel implements Serializable {
+	
 	private static final long serialVersionUID = -8075696392068480911L;
 
 	@Id
@@ -29,7 +32,7 @@ public class Player implements  Serializable {
 	
 	@ManyToMany(mappedBy = "players")
 	@JsonIgnore
-    private Set<Team> teams = new HashSet<Team>();
+    private List<Team> teams = new ArrayList<Team>();
 	
 	public Player() {};
 	
@@ -85,14 +88,14 @@ public class Player implements  Serializable {
     /**
 	 * @return the teams
 	 */
-	public Set<Team> getTeams() {
+	public List<Team> getTeams() {
 		return teams;
 	}
 
 	/**
 	 * @param teams the teams to set
 	 */
-	public void setTeams(Set<Team> teams) {
+	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
 

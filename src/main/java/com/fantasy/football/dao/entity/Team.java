@@ -1,7 +1,9 @@
-package com.fantasy.football.domain.entity;
+package com.fantasy.football.dao.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,11 +18,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fantasy.football.domain.AuditModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "team")
+@Entity(name = "Team")
 @Table(name = "team")
-public class Team implements Serializable {
+public class Team extends AuditModel implements Serializable {
 
 	private static final long serialVersionUID = 7540779346243793203L;
 
@@ -56,7 +59,7 @@ public class Team implements Serializable {
     	    joinColumns = @JoinColumn(name = "team_id"),
     	    inverseJoinColumns = @JoinColumn(name = "player_id")
     	)
-    	private Set<Player> players = new HashSet<Player>();
+    	private List<Player> players = new ArrayList<Player>();
 	
 	// Constructors
 	public Team() {
@@ -66,7 +69,7 @@ public class Team implements Serializable {
 		this.name = teamName;
 	}
 
-	public Team(Set<Player> players) {
+	public Team(List<Player> players) {
 		for (Player player : players) {
 			Player tmpPlayer = new Player(player);
 			this.players.add(tmpPlayer);
@@ -85,13 +88,13 @@ public class Team implements Serializable {
 	}	
 
 	// Relationship getters and setters
-	public void setPlayers(Set<Player> players) {
+	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
 
-	public Set<Player> getPlayers() {
+	public List<Player> getPlayers() {
 		if (this.players == null) {
-			this.players = new HashSet<>();
+			this.players = new ArrayList<>();
 		}
 		return this.players;
 	}

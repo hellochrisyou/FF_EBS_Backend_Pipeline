@@ -11,11 +11,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @EnableCaching
-//@ComponentScan(basePackages = { "com.fantasy.football" })
+@ComponentScan(basePackages = { "com.fantasy.football" })
 //@EntityScan(basePackages = "com.fantasy.football.domain")
 //@EnableJpaRepositories(basePackages = "com.fantasy.football.repository")
-//@EnableAutoConfiguration
-@EnableJpaAuditing
+//@EnableAut																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						oConfiguration
+//@EnableJpaAuditing
 @SpringBootApplication
 public class ServerFfApplication {
 

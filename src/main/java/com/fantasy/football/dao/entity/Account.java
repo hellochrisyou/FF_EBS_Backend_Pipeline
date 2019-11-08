@@ -1,7 +1,8 @@
-package com.fantasy.football.domain.entity;
+package com.fantasy.football.dao.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,9 +16,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fantasy.football.domain.AuditModel;
+
 @Entity(name = "Account")
 @Table(name = "account")
-public class Account implements Serializable {
+public class Account extends AuditModel implements Serializable {
 	
 	private static final long serialVersionUID = 8187716038664503416L;
 
@@ -50,10 +53,10 @@ public class Account implements Serializable {
 	    joinColumns = @JoinColumn(name = "account_id"),
 	    inverseJoinColumns = @JoinColumn(name = "league_id")
 	)
-	private Set<League> leagues = new HashSet<League>();
+	private List<League> leagues = new ArrayList<League>();
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Team> teams = new HashSet<Team>();
+	private List<Team> teams = new ArrayList<Team>();
 	
 	// Relationship Getters and Setters
 	public void addLeague(League league) {
@@ -103,7 +106,7 @@ public class Account implements Serializable {
 	/**
 	 * @return the teams
 	 */ 
-	public Set<Team> getTeams() {
+	public List<Team> getTeams() {
 		return teams;
 	}
 	public void addTeam(Team localTeam) {
@@ -118,17 +121,17 @@ public class Account implements Serializable {
 		}
 		return null;
 	}
-	public void setTeams(Set<Team> teams) {
+	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
 	
     
-	public Set<League> getLeagues() {
+	public List<League> getLeagues() {
 		return leagues;
 	}
 
 	
-	public void setLeagues(Set<League> leagues) {
+	public void setLeagues(List<League> leagues) {
 		this.leagues = leagues;
 	}
 

@@ -1,9 +1,9 @@
 package com.fantasy.football.domain;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-import com.fantasy.football.domain.entity.Player;
+import com.fantasy.football.dao.entity.Player;
 
 public class Roster {
 	int qb = 0;
@@ -17,7 +17,7 @@ public class Roster {
 	public Roster() {
 	};
 
-	public Roster(Set<Player> players) {
+	public Roster(List<Player> players) {
 		for (Player player : players) {
 			switch (player.getPosition()) {
 			case "QB":

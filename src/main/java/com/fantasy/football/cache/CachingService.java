@@ -7,8 +7,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.fantasy.football.domain.entity.Account;
-import com.fantasy.football.repository.AccountRepository;
+import com.fantasy.football.dao.entity.Account;
+import com.fantasy.football.dao.repository.AccountRepository;
 
 @Service
 @CacheConfig(cacheNames={"user"})
