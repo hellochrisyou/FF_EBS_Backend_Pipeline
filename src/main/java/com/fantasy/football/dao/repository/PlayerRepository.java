@@ -9,11 +9,10 @@ import com.fantasy.football.dao.entity.Player;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
-	boolean existsByName(String playereName);
-
 	@Override
 	List<Player> findAll();
 
-	Player findByName(String name);
+	Player findByPlayerName(String name);
 
+	boolean existsByPlayerName(String playerName);
 }

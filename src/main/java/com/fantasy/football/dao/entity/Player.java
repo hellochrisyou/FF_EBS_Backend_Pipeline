@@ -24,11 +24,11 @@ public class Player extends AuditModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
-	protected String name = "default";
+	protected String playerName = "default";
 	protected String position = "default";
 	protected boolean active = false;
 	protected boolean flex = false;
-	protected float fantasy_points = 0;	
+	protected float fantasyPoints = 0;	
 	
 	@ManyToMany(mappedBy = "players")
 	@JsonIgnore
@@ -37,9 +37,9 @@ public class Player extends AuditModel implements Serializable {
 	public Player() {};
 	
 	public Player(Player player) {
-		this.setName(player.getName());
+		this.setPlayerName(player.getPlayerName());
 		this.setPosition(player.getPosition());
-		this.setFantasy_points(player.getFantasy_points());
+		this.setFantasyPoints(player.getFantasyPoints());
 	}
 	
 	public Long getId() {
@@ -48,12 +48,14 @@ public class Player extends AuditModel implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getPlayerName() {
+		return playerName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
+
 	public String getPosition() {
 		return position;
 	}
@@ -69,12 +71,12 @@ public class Player extends AuditModel implements Serializable {
 	public void toggleActive() {
 		this.active = !this.active;
 	}
-	public float getFantasy_points() {
-		return fantasy_points;
+	public float getFantasyPoints() {
+		return fantasyPoints;
 	}
 
-	public void setFantasy_points(float fantasy_points) {
-		this.fantasy_points = fantasy_points;
+	public void setFantasyPoints(float fantasyPoints) {
+		this.fantasyPoints = fantasyPoints;
 	}
 
 	public boolean isFlex() {
@@ -114,10 +116,10 @@ public class Player extends AuditModel implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (active ? 1231 : 1237);
-		result = prime * result + Float.floatToIntBits(fantasy_points);
+		result = prime * result + Float.floatToIntBits(fantasyPoints);
 		result = prime * result + (flex ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((playerName == null) ? 0 : playerName.hashCode());
 		result = prime * result + ((position == null) ? 0 : position.hashCode());
 		return result;
 	}
@@ -132,7 +134,7 @@ public class Player extends AuditModel implements Serializable {
 		Player other = (Player) obj;
 		if (active != other.active)
 			return false;
-		if (Float.floatToIntBits(fantasy_points) != Float.floatToIntBits(other.fantasy_points))
+		if (Float.floatToIntBits(fantasyPoints) != Float.floatToIntBits(other.fantasyPoints))
 			return false;
 		if (flex != other.flex)
 			return false;
@@ -141,10 +143,10 @@ public class Player extends AuditModel implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (playerName == null) {
+			if (other.playerName != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!playerName.equals(other.playerName))
 			return false;
 		if (position == null) {
 			if (other.position != null)

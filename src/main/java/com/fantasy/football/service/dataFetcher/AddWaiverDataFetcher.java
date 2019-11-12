@@ -33,9 +33,9 @@ public class AddWaiverDataFetcher implements DataFetcher<Account> {
 		Player oldPlayer = new Player();
 		
 		waiverPlayer = dto.getPlayer1();
-		myRepoAccount = this.accountRepository.findByName(dto.getMyAccountName());				
+		myRepoAccount = this.accountRepository.findByAccountName(dto.getMyAccountName());				
 		
-		oldPlayer = myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getName());		
+		oldPlayer = myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getPlayerName());		
 		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).removePlayer(oldPlayer);
 		
 		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).addPlayer(waiverPlayer);

@@ -41,27 +41,27 @@ public class TradeTeamDataFetcher implements DataFetcher<Account> {
 		League myRepoLeague = new League();
 		List<Account> allAccounts = new ArrayList<Account>();
 		
-		myRepoAccount = this.accountRepository.findByName(dto.getMyAccountName());
-		myRepoLeague = this.leagueRepository.findByName(dto.getMyLeagueName());
+		myRepoAccount = this.accountRepository.findByAccountName(dto.getMyAccountName());
+		myRepoLeague = this.leagueRepository.findByLeagueName(dto.getMyLeagueName());
 		// Find Other Account 
 		allAccounts = this.accountRepository.findAll();
 		String otherAccountName = "";
 		for (Account account: allAccounts) {
 			for (Team team: account.getTeams()) {
-				if (team.getName().equals(dto.getOtherTeamName())) {
-					otherAccountName = account.getName();
+				if (team.getTeamName().equals(dto.getOtherTeamName())) {
+					otherAccountName = account.getAccountName();
 					break;
 				}
 			}
 		}		
 		Account otherRepoAccount = new Account();
-		otherRepoAccount = this.accountRepository.findByName(otherAccountName);
+		otherRepoAccount = this.accountRepository.findByAccountName(otherAccountName);
 		
 		// Remove Players from my team and other teammyPlayer
 		Player myPlayer = new Player();
 		Player otherPlayer = new Player();
-		myPlayer = myRepoLeague.getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getName());		
-		otherPlayer = myRepoLeague.getTeam(dto.getOtherTeamName()).getPlayer(dto.getPlayer1().getName());
+		myPlayer = myRepoLeague.getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getPlayerName());		
+		otherPlayer = myRepoLeague.getTeam(dto.getOtherTeamName()).getPlayer(dto.getPlayer1().getPlayerName());
 		
 		Player myNewPlayer = new Player(dto.getPlayer1());
 		Player otherNewPlayer = new Player(dto.getPlayer2());

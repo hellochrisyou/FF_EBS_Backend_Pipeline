@@ -30,15 +30,10 @@ public class Team extends AuditModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
-
-	protected String name = "Default";
-	protected int wins = 0;
-	protected int loss = 0;
-	protected int tie = 0;
-	protected int matchup = 0;
-	protected int matchup_id = 0;
-	protected int draft_position = 0;
+	protected String teamName = "Default";	
+	protected int draftPosition = 0;
 	protected String helmet = "";
+	protected float totalPoints = 0;
 	
 	// Relationships
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -66,7 +61,7 @@ public class Team extends AuditModel implements Serializable {
 	}
 
 	public Team(String teamName) {
-		this.name = teamName;
+		this.teamName = teamName;
 	}
 
 	public Team(List<Player> players) {
@@ -77,11 +72,10 @@ public class Team extends AuditModel implements Serializable {
 	}
 
 	public Team(Team team) {
-		this.setName(team.getName());
-		this.setMatchup(team.getMatchup());
-		this.setMatchup_id(team.getMatchup_id());
-		this.setDraft_position(team.getDraft_position());
+		this.setTeamName(team.getTeamName());		
+		this.setDraftPosition(team.getDraftPosition());
 		this.setHelmet(this.getHelmet());
+		this.setTotalPoints(team.getTotalPoints());
 		for (Player tmpPlayer : team.getPlayers()) {
 			this.players.add(tmpPlayer);
 		}
@@ -100,7 +94,7 @@ public class Team extends AuditModel implements Serializable {
 	}
 	public Player getPlayer(String playerName) {
 		for (Player player: this.players) {
-			if (player.getName().equals(playerName)) {
+			if (player.getPlayerName().equals(playerName)) {
 				return player;
 			}
 		}
@@ -126,44 +120,20 @@ public class Team extends AuditModel implements Serializable {
 		this.id = id;
 	}
 
-	public int getLoss() {
-		return loss;
+	public String getTeamName() {
+		return teamName;
 	}
 
-	public void setLoss(int loss) {
-		this.loss = loss;
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 
-	public int getMatchup() {
-		return matchup;
+	public int getDraftPosition() {
+		return draftPosition;
 	}
 
-	public void setMatchup(int matchup) {
-		this.matchup = matchup;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getMatchup_id() {
-		return matchup_id;
-	}
-
-	public void setMatchup_id(int matchup_id) {
-		this.matchup_id = matchup_id;
-	}
-
-	public int getDraft_position() {
-		return draft_position;
-	}
-
-	public void setDraft_position(int draft_position) {
-		this.draft_position = draft_position;
+	public void setDraftPosition(int draftPosition) {
+		this.draftPosition = draftPosition;
 	}
 
 	public String getHelmet() {
@@ -173,23 +143,18 @@ public class Team extends AuditModel implements Serializable {
 	public void setHelmet(String helmet) {
 		this.helmet = helmet;
 	}
-	public int getTie() {
-		return tie;
+	
+	
+	
+    public float getTotalPoints() {
+		return totalPoints;
 	}
 
-	public void setTie(int tie) {
-		this.tie = tie;
+	public void setTotalPoints(float totalPoints) {
+		this.totalPoints = totalPoints;
 	}
 
-	public int getWins() {
-		return wins;
-	}
-
-	public void setWins(int wins) {
-		this.wins = wins;
-	}
-
-    /**
+	/**
 	 * @return the league
 	 */
 	public Account getAccount() {

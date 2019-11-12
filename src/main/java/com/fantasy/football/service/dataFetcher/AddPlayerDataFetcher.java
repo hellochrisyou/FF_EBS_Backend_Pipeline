@@ -14,6 +14,7 @@ import com.fantasy.football.domain.Roster;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 
+// Add Draft Player
 @Component
 public class AddPlayerDataFetcher implements DataFetcher<League> {
 
@@ -28,7 +29,7 @@ public class AddPlayerDataFetcher implements DataFetcher<League> {
 		League repoLeague = new League();
 		Player newPlayer = new Player(dto.getPlayer1());
 		
-		repoLeague = this.leagueRepository.findByName(dto.getMyLeagueName());
+		repoLeague = this.leagueRepository.findByLeagueName(dto.getMyLeagueName());
 		Roster roster = new Roster(repoLeague.getTeam(dto.getMyTeamName()).getPlayers());
 		
 		if (roster.checkPosition(newPlayer.getPosition())) {
@@ -40,10 +41,10 @@ public class AddPlayerDataFetcher implements DataFetcher<League> {
 		repoLeague.getTeam(dto.getMyTeamName()).addPlayer(newPlayer);	
 		newPlayer.addTeam(repoLeague.getTeam(dto.getMyTeamName()));		
 		
-		if (repoLeague.getDraft_order() == 10 && repoLeague.getTeam(dto.getMyTeamName()).getPlayers().size() == 16) {
+		if (repoLeague.getDraftOrder() == 10 && repoLeague.getTeam(dto.getMyTeamName()).getPlayers().size() == 16) {
 			repoLeague.setStatus("Ongoing");
 		} else { 
-			repoLeague.setDraft_order(repoLeague.getDraft_order()+1);
+			repoLeague.setDraftOrder(repoLeague.getDraftOrder()+1);
 		}		
 		
 		return this.leagueRepository.save(repoLeague);

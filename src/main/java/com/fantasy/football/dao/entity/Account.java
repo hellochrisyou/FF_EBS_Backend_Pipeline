@@ -27,21 +27,17 @@ public class Account extends AuditModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name = "";		
-	private boolean admin = false;
-	private boolean master = false;
+	private String accountName = "";	
 	
 	// Constructor
 	public Account() {}
 	
 	public Account(String accountName) {
-		this.setName(accountName);
+		this.setAccountName(accountName);
 	}
 	
 	public Account(Account account) {
-		this.setAdmin(account.isAdmin());
-		this.setMaster(account.isMaster());
-		this.setName(account.getName());
+		this.setAccountName(account.getAccountName());
 	}
 	
 	// Relationship
@@ -76,28 +72,18 @@ public class Account extends AuditModel implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public boolean isAdmin() {
-		return admin;
-	}
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-	public boolean isMaster() {
-		return master;
-	}
-	public void setMaster(boolean master) {
-		this.master = master;
+
+	public String getAccountName() {
+		return accountName;
 	}
 
-	public String getName() {
-		return name;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public Team getTeam(String teamName) {
 		for (Team team : teams) {
-			if (team.getName().equals(teamName)) {
+			if (team.getTeamName().equals(teamName)) {
 				return team;
 			}
 		}
@@ -115,7 +101,7 @@ public class Account extends AuditModel implements Serializable {
 	}
 	public League getLeague(String leagueName) {
 		for (League league : leagues) {
-			if (league.getName().equals(leagueName)) {
+			if (league.getLeagueName().equals(leagueName)) {
 				return league;
 			}
 		}

@@ -9,10 +9,10 @@ import com.fantasy.football.dao.entity.Account;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-	boolean existsByName(String userName);
+	@Override
+	List<Account> findAll();
 
-//	@Override
-//	List<Account> findAll();
-
-	Account findByName(String userName);
+	Account findByAccountName(String returnCurrentUser);
+	
+	boolean existsByAccountName(String accountName);
 }

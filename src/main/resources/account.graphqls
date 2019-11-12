@@ -4,22 +4,23 @@ schema{
 }
 
 type Query {
-	account(name: String): Account
+	account(accountName: String): Account
 	leagues:[League]
+	league: League
 }
 
 type Mutation {
 	createLeague(league: LeagueInput): Account	
 	createTeam(dto: DtoInput): Account
-	tradeTeam(dto: DtoInput): Account 
-	addWaiver(dto: DtoInput): Account 
-	togglePlayer(dto: DtoInput): Account 
-	addPlayer(dto: DtoInput): League	
+	tradeTeam(dto: DtoInput): Account
+	addWaiver(dto: DtoInput): Account
+	togglePlayer(dto: DtoInput): Account
+	addPlayer(dto: DtoInput): League
 }
 
 type Account {
 	id: ID!
-	name: String
+	accountName: String
 	admin: Boolean
 	master: Boolean
 	leagues: [League]
@@ -30,7 +31,7 @@ type League {
 	id: ID,
 	count: Int
 	draft_order: Int
-	name: String
+	leagueName: String
 	status: String
 	accounts: [Account]
 	teams: [Team]
@@ -38,7 +39,7 @@ type League {
 
 type Team {
 	id: ID!
-	name: String
+	teamName: String
 	wins: Int
 	loss: Int
 	tie: Int
@@ -53,7 +54,7 @@ type Team {
 
 type Player {
 	id: ID!
-	name: String
+	playerName: String
 	position: String
 	active: Boolean
 	flex: Boolean
@@ -73,7 +74,7 @@ type Dto {
 
 input AccountInput {
 	id: ID!
-	name: String
+	accountName: String
 	admin: Boolean
 	master: Boolean
 	leagues: [LeagueInput]
@@ -82,9 +83,9 @@ input AccountInput {
 
 input LeagueInput {
 	id: ID,
+	leagueName: String
 	count: Int
-	draft_order: Int
-	name: String
+	draft_order: Int	
 	status: String
 	accounts: [AccountInput]
 	teams: [TeamInput]
@@ -92,7 +93,7 @@ input LeagueInput {
 
 input TeamInput {
 	id: ID!
-	name: String
+	teamName: String
 	wins: Int
 	loss: Int
 	tie: Int
@@ -107,7 +108,7 @@ input TeamInput {
 
 input PlayerInput {
 	id: ID!
-	name: String
+	playerName: String
 	position: String
 	active: Boolean
 	flex: Boolean

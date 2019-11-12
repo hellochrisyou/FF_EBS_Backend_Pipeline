@@ -30,17 +30,17 @@ public class League extends AuditModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private int count = 0;
-	private int draft_order = 1;
-	private String name = "Default";
+	private int draftOrder = 1;
+	private String leagueName = "Default";
 	private int startWeek = 1;	
-	private int current_week = 1;	
+	private int currentWeek = 1;	
 	private String status = "Created";
 	
 	public League() {		
 	}
 	
 	public League(String leagueName) {
-		this.setName(leagueName);
+		this.setLeagueName(leagueName);
 	} 
 	
 	//Relationship
@@ -62,7 +62,7 @@ public class League extends AuditModel implements Serializable {
     }	
 	public Account getAccount(String accountName) {
 		for (Account account: this.accounts) {
-			if (account.getName().equals(accountName)) {
+			if (account.getAccountName().equals(accountName)) {
 				return account;
 			}
 		}
@@ -73,7 +73,7 @@ public class League extends AuditModel implements Serializable {
 	}
 	public Team getTeam(String teamName) {
 		for (Team team : teams) {
-			if (team.getName().equals(teamName)) {
+			if (team.getTeamName().equals(teamName)) {
 				return team;
 			}
 		}
@@ -117,12 +117,15 @@ public class League extends AuditModel implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+
+	public String getLeagueName() {
+		return leagueName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setLeagueName(String leagueName) {
+		this.leagueName = leagueName;
 	}
+
 	public int getStartWeek() {
 		return startWeek;
 	}
@@ -136,20 +139,20 @@ public class League extends AuditModel implements Serializable {
 		this.count = count;
 	}
 
-	public int getCurrent_week() {
-		return current_week;
+	public int getCurrentWeek() {
+		return currentWeek;
 	}
 
-	public void setCurrent_week(int current_week) {
-		this.current_week = current_week;
+	public void setCurrentWeek(int currentWeek) {
+		this.currentWeek = currentWeek;
 	}
 
-	public int getDraft_order() {
-		return draft_order;
+	public int getDraftOrder() {
+		return draftOrder;
 	}
 
-	public void setDraft_order(int draft_order) {
-		this.draft_order = draft_order;
+	public void setDraftOrder(int draft_order) {
+		this.draftOrder = draft_order;
 	}
 
 	public String getStatus() {
@@ -163,12 +166,12 @@ public class League extends AuditModel implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         League league = (League) o;
-        return Objects.equals(name, league.name);
+        return Objects.equals(leagueName, league.leagueName);
     }
  
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(leagueName);
     }
 	
 	

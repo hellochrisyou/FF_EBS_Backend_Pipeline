@@ -31,22 +31,18 @@ public class CreateTeamDataFetcher implements DataFetcher<Account> {
 
 		Team newTeam = new Team();
 		
-		Account firstAccount = this.accountRepository.findByName(dto.getMyAccountName());
- 		League newLeague = this.leagueRepository.findByName(dto.getMyLeagueName());
+		Account firstAccount = this.accountRepository.findByAccountName(dto.getMyAccountName());
+ 		League newLeague = this.leagueRepository.findByLeagueName(dto.getMyLeagueName());
 		
  		// Set Team properties
  		int leagueCount = newLeague.getCount();
  		newLeague.setCount(leagueCount + 1);
- 		newTeam.setName(dto.getMyTeamName());
+ 		newTeam.setTeamName(dto.getMyTeamName());
 		newTeam.setHelmet(dto.getMyTeamHelmet());
-		newTeam.setMatchup_id(leagueCount);
-		newTeam.setDraft_position(leagueCount);
+		newTeam.setDraftPosition(leagueCount);
 		if (leagueCount == 10) {
-			newTeam.setMatchup(1);
 			newLeague.setStatus("Draft");
-		} else {
-			newTeam.setMatchup(leagueCount+1);
-		}
+		} 
 		// Add and set League first. Then save Account
 		firstAccount.addLeague(newLeague);
 		newLeague.addAccount(firstAccount);

@@ -26,10 +26,9 @@ public class CreateLeagueDataFetcher implements DataFetcher<Account> {
 	@Transactional
     public Account get(DataFetchingEnvironment dataFetchingEnvironment) {
 		League league= dataFetchingEnvironment.getArgument("league");
-		Account myAccount = new Account();
-		myAccount = this.cacheingService.returnCurrentUser();
+		Account myAccount = this.accountRepository.findByAccountName(this.cacheingService.returnCurrentUser());
 		
-		League newLeague = new League(league.getName());
+		League newLeague = new League(league.getLeagueName());
 		myAccount.addLeague(newLeague);
 		return this.accountRepository.save(myAccount);
 	}

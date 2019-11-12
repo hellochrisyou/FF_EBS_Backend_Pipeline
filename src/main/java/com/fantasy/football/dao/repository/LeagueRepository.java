@@ -10,8 +10,7 @@ import com.fantasy.football.dao.entity.League;
 @Repository
 public interface LeagueRepository extends JpaRepository<League, Long> {
 
-	boolean existsByName(String name);
-
-	League findByName(String name);
+	League findByLeagueName(String name);
 	
+	boolean existsByLeagueName(String league);
 }

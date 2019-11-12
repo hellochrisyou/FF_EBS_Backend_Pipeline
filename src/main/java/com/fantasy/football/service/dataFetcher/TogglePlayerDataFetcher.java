@@ -24,9 +24,9 @@ public class TogglePlayerDataFetcher implements DataFetcher<Account> {
 		Dto dto= dataFetchingEnvironment.getArgument("dto");
 
 		Account myRepoAccount = new Account();
-		myRepoAccount = this.accountRepository.findByName(dto.getMyAccountName());				
-		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer1().getName()).toggleActive();
-		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getName()).toggleActive();
+		myRepoAccount = this.accountRepository.findByAccountName(dto.getMyAccountName());				
+		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer1().getPlayerName()).toggleActive();
+		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getPlayerName()).toggleActive();
 		return this.accountRepository.save(myRepoAccount);
 	}
 }

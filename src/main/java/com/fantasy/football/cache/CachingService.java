@@ -19,9 +19,9 @@ public class CachingService {
 	private String userName = "default";
 	
 	@Cacheable
-	public Account returnCurrentUser() {
-		if (this.accountRepository.existsByName(userName)) {
-		return this.accountRepository.findByName(userName);
+	public String returnCurrentUser() {
+		if (this.accountRepository.existsByAccountName(userName)) {
+		return userName;
 		} else {		
 		return null;
 		}
