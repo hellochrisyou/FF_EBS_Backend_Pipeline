@@ -22,18 +22,20 @@ public class AccountDataFetcher implements DataFetcher<Account> {
 	
 	@Override
 	@Transactional
-	public Account get(DataFetchingEnvironment dataFetchingEnvironment) throws Exception {		
-		String name= dataFetchingEnvironment.getArgument("accountName");
-		Account thisAccount = new Account();
+	public Account get(DataFetchingEnvironment dataFetchingEnvironment) throws Exception {
+		// NEED TO THINK IF I NEED THIS WITH NEW AUTHENTICATION NOW
 		
-		if (this.accountRepository.existsByAccountName(name)) {
-			thisAccount = this.accountRepository.findByAccountName(name);
-			this.cacheingService.updateCurrentUser(thisAccount.getAccountName());
-			return thisAccount;
-		} else {
-			thisAccount = new Account(name);
-			this.cacheingService.updateCurrentUser(thisAccount.getAccountName());
+//		String name= dataFetchingEnvironment.getArgument("accountName");
+		Account thisAccount = new Account();
+//		
+//		if (this.accountRepository.existsByAccountName(name)) {
+//			thisAccount = this.accountRepository.findByAccountName(name);
+//			this.cacheingService.updateCurrentUser(thisAccount.getAccountName());
+//			return thisAccount;
+//		} else {
+//			thisAccount = new Account(name);
+//			this.cacheingService.updateCurrentUser(thisAccount.getAccountName());
 			return this.accountRepository.save(thisAccount);
-		}
+//		}
 	}	
 }

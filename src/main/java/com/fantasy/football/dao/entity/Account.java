@@ -28,17 +28,15 @@ public class Account extends AuditModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String accountName = "";	
+	private String password = "";
 	
 	// Constructor
 	public Account() {}
 	
-	public Account(String accountName) {
+	public Account(String accountName, String password) {
 		this.setAccountName(accountName);
-	}
-	
-	public Account(Account account) {
-		this.setAccountName(account.getAccountName());
-	}
+		this.setPassword(password);
+	}	
 	
 	// Relationship
 	@ManyToMany(cascade = {
@@ -79,6 +77,14 @@ public class Account extends AuditModel implements Serializable {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Team getTeam(String teamName) {

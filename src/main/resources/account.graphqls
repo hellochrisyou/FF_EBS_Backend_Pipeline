@@ -4,10 +4,15 @@ schema{
 }
 
 type Query {
-	account(accountName: String): Account
-	leagues:[League]
+	account(accountName: String): Account 	
+	leagues:[League] {
+		leagueName
+		[teams] {
+			teamName
+		}
+	}
 	league: League
-}
+	authenticateUser($email: String, $password: String): String
 
 type Mutation {
 	createLeague(league: LeagueInput): Account	
