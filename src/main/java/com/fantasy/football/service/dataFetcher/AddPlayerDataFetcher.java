@@ -5,11 +5,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fantasy.football.dao.entity.League;
-import com.fantasy.football.dao.entity.Player;
-import com.fantasy.football.dao.repository.LeagueRepository;
-import com.fantasy.football.domain.Dto;
 import com.fantasy.football.domain.Roster;
+import com.fantasy.football.domain.entity.League;
+import com.fantasy.football.domain.entity.Player;
+import com.fantasy.football.domain.model.Dto;
+import com.fantasy.football.repository.LeagueRepository;
+import com.fantasy.football.service.AuthorizeService;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -21,9 +22,15 @@ public class AddPlayerDataFetcher implements DataFetcher<League> {
 	@Autowired
 	private LeagueRepository leagueRepository;
 	
+	@Autowired
+	private AuthorizeService authorizeService; 
+	
 	@Override
 	@Transactional
 	public League get(DataFetchingEnvironment dataFetchingEnvironment) {
+		
+		this.authorizeService.authorizeBoth();
+		
 		Dto dto= dataFetchingEnvironment.getArgument("dto");
 
 		League repoLeague = new League();

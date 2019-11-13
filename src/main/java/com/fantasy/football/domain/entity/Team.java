@@ -1,4 +1,4 @@
-package com.fantasy.football.dao.entity;
+package com.fantasy.football.domain.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fantasy.football.domain.AuditModel;
+import com.fantasy.football.domain.model.AuditModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "Team")

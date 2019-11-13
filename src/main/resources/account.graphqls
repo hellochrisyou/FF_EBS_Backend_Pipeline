@@ -12,121 +12,123 @@ type Query {
 		}
 	}
 	league: League
-	authenticateUser($email: String, $password: String): String
+	authenticate(account: AccountInput): String
+}
 
 type Mutation {
-	createLeague(league: LeagueInput): Account	
-	createTeam(dto: DtoInput): Account
-	tradeTeam(dto: DtoInput): Account
-	addWaiver(dto: DtoInput): Account
-	togglePlayer(dto: DtoInput): Account
-	addPlayer(dto: DtoInput): League
+	createLeague(league: LeagueInput): Account,
+	createTeam(dto: DtoInput): Account,
+	tradeTeam(dto: DtoInput): Account,
+	addWaiver(dto: DtoInput): Account,
+	togglePlayer(dto: DtoInput): Account,
+	addPlayer(dto: DtoInput): League,
+	register(account: AccountInput): Account
 }
 
 type Account {
-	id: ID!
-	accountName: String
-	admin: Boolean
-	master: Boolean
-	leagues: [League]
+	id: ID!,
+	accountName: String,
+	admin: Boolean,
+	master: Boolean,
+	leagues: [League],
 	teams: [Team]
 }
 
 type League {
 	id: ID,
-	count: Int
-	draft_order: Int
-	leagueName: String
-	status: String
-	accounts: [Account]
+	count: Int,
+	draft_order: Int,
+	leagueName: String,
+	status: String,
+	accounts: [Account],
 	teams: [Team]
 }
 
 type Team {
-	id: ID!
-	teamName: String
-	wins: Int
-	loss: Int
-	tie: Int
-	matchup: Int
-	matchup_id: Int
-	draft_position: Int
-	helmet: String
-	league: League
-	account: Account
+	id: ID!,
+	teamName: String,
+	wins: Int,
+	loss: Int,
+	tie: Int,
+	matchup: Int,
+	matchup_id: Int,
+	draft_position: Int,
+	helmet: String,
+	league: League,
+	account: Account,
 	players: [Player]
 }
 
 type Player {
-	id: ID!
-	playerName: String
-	position: String
-	active: Boolean
-	flex: Boolean
-	fantasy_points: Float
+	id: ID!,
+	playerName: String,
+	position: String,
+	active: Boolean,
+	flex: Boolean,
+	fantasy_points: Float,
 	teams: [Team]
 }
 
 type Dto {
-	myLeagueName: String
-	myAccountName: String
-	myTeamName: String
-	myTeamHelmet: String
-	otherTeamName: String
-	player1: Player
+	myLeagueName: String,
+	myAccountName: String,
+	myTeamName: String,
+	myTeamHelmet: String,
+	otherTeamName: String,
+	player1: Player,
 	player2: Player
 }
 
 input AccountInput {
-	id: ID!
-	accountName: String
-	admin: Boolean
-	master: Boolean
-	leagues: [LeagueInput]
+	id: ID!,
+	accountName: String,
+	admin: Boolean,
+	master: Boolean,
+	leagues: [LeagueInput],
 	teams: [TeamInput]
 }
 
 input LeagueInput {
 	id: ID,
-	leagueName: String
-	count: Int
-	draft_order: Int	
-	status: String
-	accounts: [AccountInput]
+	leagueName: String,
+	count: Int,
+	draft_order: Int,
+	status: String,
+	accounts: [AccountInput],
 	teams: [TeamInput]
 }
 
 input TeamInput {
-	id: ID!
-	teamName: String
-	wins: Int
-	loss: Int
-	tie: Int
-	matchup: Int
-	matchup_id: Int
-	draft_position: Int
-	helmet: String
-	league: LeagueInput
-	account: AccountInput
+	id: ID!,
+	teamName: String,
+	wins: Int,
+	loss: Int,
+	tie: Int,
+	matchup: Int,
+	matchup_id: Int,
+	draft_position: Int,
+	helmet: String,
+	league: LeagueInput,
+	account: AccountInput,
 	players: [PlayerInput]
 }
 
 input PlayerInput {
-	id: ID!
-	playerName: String
-	position: String
-	active: Boolean
-	flex: Boolean
-	fantasy_points: Float
+	id: ID!,
+	playerName: String,
+	position: String,
+	active: Boolean,
+	flex: Boolean,
+	fantasy_points: Float,
 	teams: [TeamInput]
 }
 
 input DtoInput {
-	myLeagueName: String
-	myAccountName: String
-	myTeamName: String
-	myTeamHelmet: String
-	otherTeamName: String
-	player1: PlayerInput
+	myLeagueName: String,
+	myAccountName: String,
+	myTeamName: String,
+	myTeamHelmet: String,
+	otherTeamName: String,
+	player1: PlayerInput,
 	player2: PlayerInput
 }

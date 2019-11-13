@@ -1,8 +1,8 @@
-package com.fantasy.football.domain;
+package com.fantasy.football.domain.model;
 
 import java.util.Objects;
 
-import com.fantasy.football.dao.entity.Player;
+import com.fantasy.football.domain.entity.Player;
 
 public class Dto {
 	String myLeagueName = "My League";

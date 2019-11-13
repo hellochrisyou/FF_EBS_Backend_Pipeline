@@ -3,7 +3,7 @@ package com.fantasy.football.domain;
 import java.util.List;
 import java.util.Objects;
 
-import com.fantasy.football.dao.entity.Player;
+import com.fantasy.football.domain.entity.Player;
 
 public class Roster {
 	int qb = 0;

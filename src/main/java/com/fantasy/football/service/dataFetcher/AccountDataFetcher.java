@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fantasy.football.cache.CachingService;
-import com.fantasy.football.dao.entity.Account;
-import com.fantasy.football.dao.repository.AccountRepository;
+import com.fantasy.football.domain.entity.Account;
+import com.fantasy.football.repository.AccountRepository;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 

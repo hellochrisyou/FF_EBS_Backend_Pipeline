@@ -1,12 +1,14 @@
-package com.fantasy.football.dao.entity;
+package com.fantasy.football.domain.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fantasy.football.domain.AuditModel;
+import com.fantasy.football.domain.model.AuditModel;
+import com.fantasy.football.domain.model.Role;
 
 @Entity(name = "Account")
 @Table(name = "account")
@@ -27,16 +30,15 @@ public class Account extends AuditModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String accountName = "";	
+	
+    @Column(unique = true, nullable = false)
+	private String accountName = "";
+    
+    @Column(unique = true, nullable = false)
 	private String password = "";
 	
-	// Constructor
-	public Account() {}
-	
-	public Account(String accountName, String password) {
-		this.setAccountName(accountName);
-		this.setPassword(password);
-	}	
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<Role> roles = new ArrayList<Role>();
 	
 	// Relationship
 	@ManyToMany(cascade = {
@@ -51,6 +53,15 @@ public class Account extends AuditModel implements Serializable {
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Team> teams = new ArrayList<Team>();
+	
+	// Constructor
+	public Account() {}
+	
+	public Account(Account account) {
+		this.setAccountName(account.getAccountName());
+		this.setPassword(account.getPassword());
+		this.setRoles(account.getRoles());
+	}	
 	
 	// Relationship Getters and Setters
 	public void addLeague(League league) {
@@ -84,7 +95,15 @@ public class Account extends AuditModel implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = new String(password);
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Team getTeam(String teamName) {

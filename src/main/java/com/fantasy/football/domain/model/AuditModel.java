@@ -89,7 +89,7 @@
 //	}
 //
 //}
-package com.fantasy.football.domain;
+package com.fantasy.football.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
