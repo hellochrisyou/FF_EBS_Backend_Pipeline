@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.fantasy.football.cache.CachingService;
 import com.fantasy.football.domain.entity.Account;
+import com.fantasy.football.domain.model.Dto;
 import com.fantasy.football.exception.CustomException;
 import com.fantasy.football.repository.AccountRepository;
 import com.fantasy.football.security.JwtTokenProvider;
@@ -39,10 +40,11 @@ public class AuthenticateDataFetcher implements DataFetcher<String> {
 
 	@Override
 	public String get(DataFetchingEnvironment dataFetchingEnvironment) throws Exception {
-		Account thisAccount = dataFetchingEnvironment.getArgument("account");
+		System.out.println("reached here");
+		Dto dto = dataFetchingEnvironment.getArgument("dto");
 		
-		String accountName = thisAccount.getAccountName();
-		String password = thisAccount.getPassword();
+		String accountName = dto.getMyAccountName();
+		String password = dto.getPassword();
 
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountName, password));

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.fantasy.football.cache.CachingService;
 import com.fantasy.football.domain.entity.Account;
 import com.fantasy.football.domain.entity.League;
+import com.fantasy.football.domain.model.Dto;
 import com.fantasy.football.repository.AccountRepository;
 import com.fantasy.football.service.AuthorizeService;
 
@@ -32,10 +33,10 @@ public class CreateLeagueDataFetcher implements DataFetcher<Account> {
 		
 		this.authorizeService.authorizeAdminOnly();
 		
-		League league= dataFetchingEnvironment.getArgument("league");
+		Dto dto = dataFetchingEnvironment.getArgument("dto");
 		Account myAccount = this.accountRepository.findByAccountName(this.cacheingService.returnCurrentUser());
 		
-		League newLeague = new League(league.getLeagueName());
+		League newLeague = new League(dto.getMyLeagueName());
 		myAccount.addLeague(newLeague);
 		return this.accountRepository.save(myAccount);
 	}

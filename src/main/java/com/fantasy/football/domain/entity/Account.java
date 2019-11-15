@@ -24,60 +24,56 @@ import com.fantasy.football.domain.model.Role;
 @Entity(name = "Account")
 @Table(name = "account")
 public class Account extends AuditModel implements Serializable {
-	
+
 	private static final long serialVersionUID = 8187716038664503416L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-    @Column(unique = true, nullable = false)
+
+	@Column(unique = true, nullable = false)
 	private String accountName = "";
-    
-    @Column(unique = true, nullable = false)
+
+	@Column(unique = true, nullable = false)
 	private String password = "";
-	
-    @ElementCollection(fetch = FetchType.EAGER)
-    List<Role> roles = new ArrayList<Role>();
-	
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	List<Role> roles = new ArrayList<Role>();
+
 	// Relationship
-	@ManyToMany(cascade = {
-		    CascadeType.PERSIST,
-		    CascadeType.MERGE
-	})
-	@JoinTable(name = "account_league",
-	    joinColumns = @JoinColumn(name = "account_id"),
-	    inverseJoinColumns = @JoinColumn(name = "league_id")
-	)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "account_league", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "league_id"))
 	private List<League> leagues = new ArrayList<League>();
-	
+
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Team> teams = new ArrayList<Team>();
-	
+
 	// Constructor
-	public Account() {}
-	
+	public Account() {
+	}
+
 	public Account(Account account) {
 		this.setAccountName(account.getAccountName());
 		this.setPassword(account.getPassword());
 		this.setRoles(account.getRoles());
-	}	
-	
+	}
+
 	// Relationship Getters and Setters
 	public void addLeague(League league) {
-        leagues.add(league);
-        league.getAccounts().add(this);
-    }
- 
-    public void removeLeague(League league) {
-        leagues.remove(league);
-        league.getAccounts().remove(this);
-    }
-    
-    // Basic Getters and Setters
-    public Long getId() {
+		leagues.add(league);
+		league.getAccounts().add(this);
+	}
+
+	public void removeLeague(League league) {
+		leagues.remove(league);
+		league.getAccounts().remove(this);
+	}
+
+	// Basic Getters and Setters
+	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -105,6 +101,10 @@ public class Account extends AuditModel implements Serializable {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public void addRole(Role role) {
+		this.roles.add(role);
+	}
 
 	public Team getTeam(String teamName) {
 		for (Team team : teams) {
@@ -114,16 +114,19 @@ public class Account extends AuditModel implements Serializable {
 		}
 		return null;
 	}
+
 	/**
 	 * @return the teams
-	 */ 
+	 */
 	public List<Team> getTeams() {
 		return teams;
 	}
+
 	public void addTeam(Team localTeam) {
-		 teams.add(localTeam);
-	     localTeam.setAccount(this);
+		teams.add(localTeam);
+		localTeam.setAccount(this);
 	}
+
 	public League getLeague(String leagueName) {
 		for (League league : leagues) {
 			if (league.getLeagueName().equals(leagueName)) {
@@ -132,31 +135,31 @@ public class Account extends AuditModel implements Serializable {
 		}
 		return null;
 	}
+
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
-	
-    
+
 	public List<League> getLeagues() {
 		return leagues;
 	}
 
-	
 	public void setLeagues(List<League> leagues) {
 		this.leagues = leagues;
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Account)) return false;
-        return id != null && id.equals(((Account) o).getId());
-    }
- 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
-	
-	
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Account))
+			return false;
+		return id != null && id.equals(((Account) o).getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return 31;
+	}
+
 }

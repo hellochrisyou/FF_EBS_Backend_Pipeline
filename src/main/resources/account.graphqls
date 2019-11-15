@@ -5,24 +5,19 @@ schema{
 
 type Query {
 	account(accountName: String): Account 	
-	leagues:[League] {
-		leagueName
-		[teams] {
-			teamName
-		}
-	}
+	leagues: [League]
 	league: League
-	authenticate(account: AccountInput): String
+	authenticate(dto: DtoInput): String
 }
 
 type Mutation {
-	createLeague(league: LeagueInput): Account,
+	createLeague(dto: DtoInput): Account,
 	createTeam(dto: DtoInput): Account,
 	tradeTeam(dto: DtoInput): Account,
 	addWaiver(dto: DtoInput): Account,
 	togglePlayer(dto: DtoInput): Account,
 	addPlayer(dto: DtoInput): League,
-	register(account: AccountInput): Account
+	register(dto: DtoInput): Account
 }
 
 type Account {

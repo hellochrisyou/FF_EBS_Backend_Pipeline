@@ -9,10 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.fantasy.football.cache.CachingService;
 import com.fantasy.football.domain.entity.Account;
+import com.fantasy.football.domain.model.Dto;
+import com.fantasy.football.domain.model.Role;
 import com.fantasy.football.exception.CustomException;
 import com.fantasy.football.repository.AccountRepository;
 import com.fantasy.football.security.JwtTokenProvider;
-import com.fantasy.football.service.JwtUserDetailsService;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -36,10 +37,12 @@ public class RegisterDataFetcher implements DataFetcher<String> {
 	@Override
 	@Transactional
 	public String get(DataFetchingEnvironment dataFetchingEnvironment) {		
-		Account newAccount = new Account(dataFetchingEnvironment.getArgument("account"));
-				
-		if (!accountRepository.existsByAccountName(newAccount.getAccountName())) {
-			newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
+		Dto dto = dataFetchingEnvironment.getArgument("dto");
+		Account newAccount = new Account();
+		if (!accountRepository.existsByAccountName(dto.getMyAccountName())) {
+			newAccount.setAccountName(dto.getMyAccountName());
+			newAccount.setPassword(passwordEncoder.encode(dto.getPassword()));
+			newAccount.addRole(Role.ROLE_CLIENT);
 			accountRepository.save(newAccount);
 			this.cachingService.updateCurrentUser(newAccount.getAccountName());
 			return jwtTokenProvider.createToken(newAccount.getAccountName(), newAccount.getRoles());

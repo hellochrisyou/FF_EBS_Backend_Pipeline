@@ -3,9 +3,9 @@ package com.fantasy.football.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,11 +34,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Entry points
     http.authorizeRequests()//
-        .antMatchers("/login").permitAll()
-        .anyRequest().authenticated();
-
+    	.antMatchers("/graphql").permitAll()
+    	.antMatchers("/vendor/**").permitAll()
+    	.antMatchers("/graphiql").permitAll()
+    	.antMatchers("/login").permitAll()        
+        .anyRequest().authenticated()
+	    .and()
+	    .formLogin();
+    
     http.exceptionHandling().accessDeniedPage("/login");
     http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+    
+//  @Override
+//  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//      auth
+//          .inMemoryAuthentication()
+//              .passwordEncoder(passwordEncoder())
+//              .withUser("mi3o").password("{noop}nbusr123").roles("USER").and()
+//              .withUser("admin").password("{noop}nbusr123").roles("USER", "ADMIN");
+//  }
   }
 
   // Singleton for password/thread safety?
@@ -47,4 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     return new BCryptPasswordEncoder(12);
   }
 
+  @Bean
+  public AuthenticationManager customAuthenticationManager() throws Exception {
+    return authenticationManager();
+  }
 }
