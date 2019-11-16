@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fantasy.football.domain.model.Dto;
 import com.fantasy.football.service.dataFetcher.AccountDataFetcher;
 import com.fantasy.football.service.dataFetcher.AddPlayerDataFetcher;
 import com.fantasy.football.service.dataFetcher.AddWaiverDataFetcher;
@@ -83,9 +84,10 @@ public class GraphQLQueryController {
                 .build();
     }
     
-    @PostMapping(value = "/graphql", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Object> graphQLQuery(@RequestBody String query){
-        ExecutionResult result = graphQL.execute(query);
+    @PostMapping(value = "/graphql")
+    public ResponseEntity<Object> graphQLQuery(Dto mutation){
+    	System.out.println("mutation");
+        ExecutionResult result = graphQL.execute(mutation.getOtherTeamName());
         if(!result.getErrors().isEmpty()){
             return ResponseEntity.ok(result.getErrors());
         }
