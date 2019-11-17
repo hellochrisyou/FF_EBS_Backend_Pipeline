@@ -23,7 +23,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String accountName) throws UsernameNotFoundException {
-
 		Account account = this.accountRepository.findByAccountName(accountName);
 		if (account == null) {
 			return null;

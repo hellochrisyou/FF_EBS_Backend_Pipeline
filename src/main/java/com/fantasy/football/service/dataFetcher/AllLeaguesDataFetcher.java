@@ -22,10 +22,8 @@ public class AllLeaguesDataFetcher implements DataFetcher<List<League>> {
 	private LeagueRepository leagueRepository;
 
 	@Override
-    public List<League> get(DataFetchingEnvironment dataFetchingEnvironment) {
-		
-		this.authorizeService.authorizeBoth();
-		
+    public List<League> get(DataFetchingEnvironment dataFetchingEnvironment) {		
+		this.authorizeService.authorizeBoth();		
 		return leagueRepository.findAll();
     }
 }

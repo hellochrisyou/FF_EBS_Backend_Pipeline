@@ -36,6 +36,10 @@ public class Player extends AuditModel implements Serializable {
 	
 	public Player() {};
 	
+	public Player(String playerName) {
+		this.setPlayerName(playerName);
+	}
+	
 	public Player(Player player) {
 		this.setPlayerName(player.getPlayerName());
 		this.setPosition(player.getPosition());

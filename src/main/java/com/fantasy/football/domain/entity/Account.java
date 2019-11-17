@@ -52,6 +52,15 @@ public class Account extends AuditModel implements Serializable {
 	public Account() {
 	}
 
+	public Account(String accountName) {
+		this.setAccountName(accountName);
+	}
+	
+	public Account(String accountName, String password) {
+		this.setAccountName(accountName);
+		this.setPassword(password);
+	}
+	
 	public Account(Account account) {
 		this.setAccountName(account.getAccountName());
 		this.setPassword(account.getPassword());

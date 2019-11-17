@@ -1,19 +1,14 @@
 package com.fantasy.football.service.dataFetcher;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.fantasy.football.cache.CachingService;
-import com.fantasy.football.domain.entity.Account;
 import com.fantasy.football.domain.model.Dto;
-import com.fantasy.football.exception.CustomException;
-import com.fantasy.football.repository.AccountRepository;
 import com.fantasy.football.security.JwtTokenProvider;
+import com.fantasy.football.service.AccountService;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -27,31 +22,11 @@ public class AuthenticateDataFetcher implements DataFetcher<String> {
 	private CachingService cachingService;
 
 	@Autowired
-	private AccountRepository accountRepository;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	private AccountService accountService;
 
 	@Override
 	public String get(DataFetchingEnvironment dataFetchingEnvironment) throws Exception {
-		System.out.println("reached here");
-		Dto dto = dataFetchingEnvironment.getArgument("dto");
-		
-		String accountName = dto.getMyAccountName();
-		String password = dto.getPassword();
-
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountName, password));
-			this.cachingService.updateCurrentUser(accountName);
-			return jwtTokenProvider.createToken(accountName, accountRepository.findByAccountName(accountName).getRoles());
-		} catch (AuthenticationException e) {
-			throw new CustomException("Invalid username and/or password.", HttpStatus.UNPROCESSABLE_ENTITY);
-		}
+		Dto dto = dataFetchingEnvironment.getArgument("dto");		
+		return this.accountService.authenticate(dto);
 	}
 }

@@ -3,10 +3,9 @@ schema{
  mutation : Mutation
 }
 
-type Query {
-	account(accountName: String): Account 	
+type Query { 	
 	leagues: [League]
-	league: League
+	league(leagueName: String): League
 	authenticate(dto: DtoInput): String
 }
 

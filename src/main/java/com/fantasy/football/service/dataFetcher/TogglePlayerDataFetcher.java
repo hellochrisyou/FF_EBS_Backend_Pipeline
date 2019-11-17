@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fantasy.football.domain.entity.Account;
-import com.fantasy.football.repository.AccountRepository;
-import com.fantasy.football.service.AuthorizeService;
 import com.fantasy.football.domain.model.Dto;
+import com.fantasy.football.service.AuthorizeService;
+import com.fantasy.football.service.TeamService;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -20,20 +20,13 @@ public class TogglePlayerDataFetcher implements DataFetcher<Account> {
 	private AuthorizeService authorizeService; 
 	
 	@Autowired
-	private AccountRepository accountRepository;
+	private TeamService teamService;
 	
 	@Override
 	@Transactional
-    public Account get(DataFetchingEnvironment dataFetchingEnvironment) {
-		
-		this.authorizeService.authorizeBoth();
-		
+    public Account get(DataFetchingEnvironment dataFetchingEnvironment) {		
+		this.authorizeService.authorizeBoth();		
 		Dto dto= dataFetchingEnvironment.getArgument("dto");
-
-		Account myRepoAccount = new Account();
-		myRepoAccount = this.accountRepository.findByAccountName(dto.getMyAccountName());				
-		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer1().getPlayerName()).toggleActive();
-		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getPlayerName()).toggleActive();
-		return this.accountRepository.save(myRepoAccount);
+		return this.teamService.togglePlayer(dto);		
 	}
 }

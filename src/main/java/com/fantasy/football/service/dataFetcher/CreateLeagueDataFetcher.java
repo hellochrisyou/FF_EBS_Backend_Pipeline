@@ -5,12 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fantasy.football.cache.CachingService;
 import com.fantasy.football.domain.entity.Account;
 import com.fantasy.football.domain.entity.League;
 import com.fantasy.football.domain.model.Dto;
-import com.fantasy.football.repository.AccountRepository;
 import com.fantasy.football.service.AuthorizeService;
+import com.fantasy.football.service.LeagueService;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -22,22 +21,13 @@ public class CreateLeagueDataFetcher implements DataFetcher<Account> {
 	private AuthorizeService authorizeService; 
 	
 	@Autowired
-	private AccountRepository accountRepository;
-	
-	@Autowired
-	private CachingService cacheingService;
+	private LeagueService leagueServuce;
 	
 	@Override
 	@Transactional
-    public Account get(DataFetchingEnvironment dataFetchingEnvironment) {
-		
-		this.authorizeService.authorizeAdminOnly();
-		
-		Dto dto = dataFetchingEnvironment.getArgument("dto");
-		Account myAccount = this.accountRepository.findByAccountName(this.cacheingService.returnCurrentUser());
-		
-		League newLeague = new League(dto.getMyLeagueName());
-		myAccount.addLeague(newLeague);
-		return this.accountRepository.save(myAccount);
+    public Account get(DataFetchingEnvironment dataFetchingEnvironment) {		
+		this.authorizeService.authorizeAdminOnly();		
+		Dto dto = dataFetchingEnvironment.getArgument("dto");		
+		return this.leagueServuce.createLeague(dto);
 	}
 }

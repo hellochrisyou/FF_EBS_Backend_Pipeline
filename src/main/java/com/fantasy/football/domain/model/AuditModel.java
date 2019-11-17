@@ -100,6 +100,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -133,4 +134,21 @@ public abstract class AuditModel implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(createdAt, updatedAt);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof AuditModel))
+			return false;
+		AuditModel other = (AuditModel) obj;
+		return Objects.equals(createdAt, other.createdAt) && Objects.equals(updatedAt, other.updatedAt);
+	}
+    
+    
 }

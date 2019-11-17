@@ -1,3 +1,4 @@
+
 package com.fantasy.football.cache;
 
 
@@ -13,15 +14,16 @@ import com.fantasy.football.repository.AccountRepository;
 @Service
 @CacheConfig(cacheNames={"user"})
 public class CachingService {
+	
 	@Autowired
 	private AccountRepository accountRepository;
 	
-	private String userName = "default";
+	private String accountName = "default";
 	
 	@Cacheable
-	public String returnCurrentUser() {
-		if (this.accountRepository.existsByAccountName(userName)) {
-		return userName;
+	public Account returnCurrentUser() {
+		if (this.accountRepository.existsByAccountName(accountName)) {
+		return this.accountRepository.findByAccountName(accountName);
 		} else {		
 		return null;
 		}
@@ -29,7 +31,7 @@ public class CachingService {
 	
 	@CachePut
 	public String updateCurrentUser(String currentName) {
-		this.userName = currentName;
-		return this.userName;
+		this.accountName = currentName;
+		return this.accountName;
 	}
 }

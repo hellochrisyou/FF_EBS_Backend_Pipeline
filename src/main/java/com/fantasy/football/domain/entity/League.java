@@ -161,18 +161,31 @@ public class League extends AuditModel implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        League league = (League) o;
-        return Objects.equals(leagueName, league.leagueName);
-    }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(leagueName);
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ Objects.hash(accounts, count, currentWeek, draftOrder, id, leagueName, startWeek, status, teams);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof League))
+			return false;
+		League other = (League) obj;
+		return Objects.equals(accounts, other.accounts) && count == other.count && currentWeek == other.currentWeek
+				&& draftOrder == other.draftOrder && Objects.equals(id, other.id)
+				&& Objects.equals(leagueName, other.leagueName) && startWeek == other.startWeek
+				&& Objects.equals(status, other.status) && Objects.equals(teams, other.teams);
+	}
+	
 	
 	
 }
