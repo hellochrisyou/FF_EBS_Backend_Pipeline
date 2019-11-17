@@ -182,19 +182,19 @@ public class TeamServiceImplIntegrationTest {
 		// Remove Players from my team and other teammyPlayer
 		Player myPlayer = new Player();
 		Player otherPlayer = new Player();
-		myPlayer = myRepoLeague.getTeam(dto.getMyTeamName()).getPlayer(dto.getPlayer2().getPlayerName());
-		otherPlayer = myRepoLeague.getTeam(dto.getOtherTeamName()).getPlayer(dto.getPlayer1().getPlayerName());
+		myPlayer = myRepoLeague.getTeam(teamName).getPlayer(player2Name);
+		otherPlayer = myRepoLeague.getTeam(otherTeamName).getPlayer(player1Name);
 
 		Player myNewPlayer = new Player(dto.getPlayer1());
 		Player otherNewPlayer = new Player(dto.getPlayer2());
 
-		myRepoLeague.getTeam(dto.getMyTeamName()).removePlayer(myPlayer);
-		myRepoLeague.getTeam(dto.getOtherTeamName()).removePlayer(otherPlayer);
+		myRepoLeague.getTeam(teamName).removePlayer(myPlayer);
+		myRepoLeague.getTeam(otherTeamName).removePlayer(otherPlayer);
 
-		myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()).addPlayer(myNewPlayer);
-		myNewPlayer.addTeam(myRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getMyTeamName()));
-		otherRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getOtherTeamName()).addPlayer(otherNewPlayer);
-		otherNewPlayer.addTeam(otherRepoAccount.getLeague(dto.getMyLeagueName()).getTeam(dto.getOtherTeamName()));
+		myRepoAccount.getLeague(leagueName).getTeam(teamName).addPlayer(myNewPlayer);
+		myNewPlayer.addTeam(myRepoAccount.getLeague(leagueName).getTeam(teamName));
+		otherRepoAccount.getLeague(leagueName).getTeam(otherTeamName).addPlayer(otherNewPlayer);
+		otherNewPlayer.addTeam(otherRepoAccount.getLeague(leagueName).getTeam(otherTeamName));
 
 		this.accountRepository.save(otherRepoAccount);
 		this.playerRepository.delete(myPlayer);
