@@ -11,12 +11,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fantasy.football.domain.model.Dto;
-import com.fantasy.football.service.dataFetcher.AccountDataFetcher;
+//import com.fantasy.football.service.dataFetcher.AccountDataFetcher;
 import com.fantasy.football.service.dataFetcher.AddPlayerDataFetcher;
 import com.fantasy.football.service.dataFetcher.AddWaiverDataFetcher;
 import com.fantasy.football.service.dataFetcher.AllLeaguesDataFetcher;
@@ -36,8 +34,8 @@ import graphql.schema.idl.TypeDefinitionRegistry;
 @RestController
 public class GraphQLQueryController {
 	
-	@Autowired
-    private AccountDataFetcher accountDataFetcher;
+//	@Autowired
+//    private AccountDataFetcher accountDataFetcher;
 
     @Autowired
     private AddPlayerDataFetcher addPlayerDataFetcher;
@@ -73,7 +71,7 @@ public class GraphQLQueryController {
 
     private RuntimeWiring buildRuntimeWiring(){
         return RuntimeWiring.newRuntimeWiring().type(("Query"), typeWiring -> typeWiring
-                .dataFetcher("account", accountDataFetcher)                
+//                .dataFetcher("account", accountDataFetcher)                
                 .dataFetcher("allLeagues", allLeaguesDataFetcher)
                 .dataFetcher("createLeague", createLeagueDataFetcher)
                 .dataFetcher("createTeam", createTeamDataFetcher)

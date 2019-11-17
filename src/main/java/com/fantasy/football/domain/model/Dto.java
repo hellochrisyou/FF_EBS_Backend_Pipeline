@@ -1,19 +1,22 @@
 package com.fantasy.football.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.fantasy.football.domain.entity.Player;
 
 public class Dto {
-	String myLeagueName = "My League";
-	String myAccountName = "My account";
-	String myTeamName = "My Team";
-	String myTeamHelmet = "My Helmet";
-	String otherTeamName = "Other Team";
-	Player player1 = new Player();
-	Player player2 = new Player();
+	String myLeagueName = "leagueName";
+	String myAccountName = "accountName";
+	String myTeamName = "teamName";
+	String myTeamHelmet = "red";
+	String otherTeamName = "otherTeamName";
+	Player player1 = new Player("player1Name");
+	Player player2 = new Player("player2Name");
 	String password = "Password";
-
+	public Dto() {}	
+	
 	public String getMyLeagueName() {
 		return myLeagueName;
 	}
@@ -80,22 +83,22 @@ public class Dto {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(myAccountName, myLeagueName, myTeamHelmet, myTeamName, otherTeamName, player1, player2);
+		return Objects.hash(myAccountName, myLeagueName, myTeamHelmet, myTeamName, otherTeamName, password, player1,
+				player2);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!(obj instanceof Dto)) {
+		if (!(obj instanceof Dto))
 			return false;
-		}
 		Dto other = (Dto) obj;
 		return Objects.equals(myAccountName, other.myAccountName) && Objects.equals(myLeagueName, other.myLeagueName)
 				&& Objects.equals(myTeamHelmet, other.myTeamHelmet) && Objects.equals(myTeamName, other.myTeamName)
-				&& Objects.equals(otherTeamName, other.otherTeamName) && Objects.equals(player1, other.player1)
-				&& Objects.equals(player2, other.player2);
+				&& Objects.equals(otherTeamName, other.otherTeamName) && Objects.equals(password, other.password)
+				&& Objects.equals(player1, other.player1) && Objects.equals(player2, other.player2);
 	}
+
 
 }
