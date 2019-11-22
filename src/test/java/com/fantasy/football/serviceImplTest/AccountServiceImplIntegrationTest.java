@@ -57,7 +57,7 @@ public class AccountServiceImplIntegrationTest {
 		dto.setPassword("Password");
 		accountService.register(dto);
 		
-		assertThat(this.accountService.authenticate(dto)).asInstanceOf(InstanceOfAssertFactories.STRING);
+		assertThat(this.accountService.accountAuthenticate(dto)).asInstanceOf(InstanceOfAssertFactories.STRING);
     }
 }
 

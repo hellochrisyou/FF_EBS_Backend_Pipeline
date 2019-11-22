@@ -2,9 +2,7 @@ package com.fantasy.football.domain.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -54,7 +52,7 @@ public class Team extends AuditModel implements Serializable {
     	    joinColumns = @JoinColumn(name = "team_id"),
     	    inverseJoinColumns = @JoinColumn(name = "player_id")
     	)
-    	private List<Player> players = new ArrayList<Player>();
+    	private List<Player> players = new ArrayList<>();
 	
 	// Constructors
 	public Team() {

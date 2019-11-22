@@ -166,7 +166,7 @@ public class TeamServiceImpl implements TeamService {
 		League myRepoLeague = this.leagueRepository.findByLeagueName(leagueName);
 		
 		// Find Other Account
-		List<Account> allAccounts = new ArrayList<Account>(this.accountRepository.findAll());
+		List<Account> allAccounts = new ArrayList<>(this.accountRepository.findAll());
 		String otherAccountName = "";
 		
 		for (Account account : allAccounts) {

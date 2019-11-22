@@ -2,10 +2,8 @@ package com.fantasy.football.domain.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -49,7 +47,7 @@ public class League extends AuditModel implements Serializable {
 	private List<Account> accounts = new ArrayList<>();	
 	
 	@OneToMany(mappedBy = "league", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Team> teams = new ArrayList<Team>();
+	private List<Team> teams = new ArrayList<>();
 	
 	// Relationship getters and setters
 	public void addAccount(Account account) {
@@ -151,8 +149,8 @@ public class League extends AuditModel implements Serializable {
 		return draftOrder;
 	}
 
-	public void setDraftOrder(int draft_order) {
-		this.draftOrder = draft_order;
+	public void setDraftOrder(int draftOrder) {
+		this.draftOrder = draftOrder;
 	}
 
 	public String getStatus() {

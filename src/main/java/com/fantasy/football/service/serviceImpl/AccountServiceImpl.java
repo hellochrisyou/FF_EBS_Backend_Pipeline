@@ -33,35 +33,22 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-//	@Override
-//	@Transactional
-//	public Account findAccount(String accountName) {
-//		this.cachingService.updateCurrentUser(accountName);
-//		Account thisAccount = new Account();
-//		if (this.accountRepository.existsByAccountName(accountName)) {
-//			thisAccount = this.accountRepository.findByAccountName(accountName);
-//			return thisAccount;
-//		} else {
-//			thisAccount = new Account(accountName);
-//			return this.accountRepository.save(thisAccount);
-//		}
-//	}
-
 	@Override
 	@Transactional
-	public String authenticate(Dto dto) {
+	public Dto accountAuthenticate(Dto dto) {
 		String accountName = dto.getMyAccountName();
 		String password = dto.getPassword();
 
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(accountName, password));
 			this.cachingService.updateCurrentUser(accountName);
-			return jwtTokenProvider.createToken(accountName,
-					accountRepository.findByAccountName(accountName).getRoles());
+			dto.setToken(jwtTokenProvider.createToken(accountName,
+					accountRepository.findByAccountName(accountName).getRoles()));
+			return dto;
 		} catch (AuthenticationException e) {
 			throw new CustomException("Invalid username and/or password.", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
@@ -69,7 +56,8 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	@Transactional
-	public String register(Dto dto) {
+	public Dto register(Object oldDto) {
+		Dto dto = (Dto)oldDto;
 		Account newAccount = new Account();
 		if (!accountRepository.existsByAccountName(dto.getMyAccountName())) {
 			newAccount.setAccountName(dto.getMyAccountName());
@@ -77,7 +65,8 @@ public class AccountServiceImpl implements AccountService {
 			newAccount.addRole(Role.ROLE_CLIENT);
 			accountRepository.save(newAccount);
 			this.cachingService.updateCurrentUser(newAccount.getAccountName());
-			return jwtTokenProvider.createToken(newAccount.getAccountName(), newAccount.getRoles());
+			dto.setToken(jwtTokenProvider.createToken(newAccount.getAccountName(), newAccount.getRoles()));
+			return dto;
 		} else {
 			throw new CustomException("Account name is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
 		}

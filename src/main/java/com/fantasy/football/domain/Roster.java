@@ -14,8 +14,6 @@ public class Roster {
 	int def = 0;
 	int k = 0;
 
-	public Roster() {
-	};
 
 	public Roster(List<Player> players) {
 		for (Player player : players) {
@@ -50,19 +48,19 @@ public class Roster {
 	public boolean checkPosition(String position) {
 		switch (position) {
 		case "QB":
-			this.checkQb();
+			return this.checkQb();			
 		case "RB":
-			this.checkRb();
+			return this.checkRb();
 		case "WR":
-			this.checkWr();
+			return this.checkWr();
 		case "TE":
-			this.checkTe();
+			return this.checkTe();
 		case "FLEX":
-			this.checkFlex();
+			return this.checkFlex();
 		case "DEF":
-			this.checkDef();
+			return this.checkDef();
 		case "K":
-			this.checkKicker();
+			return this.checkKicker();
 		default:
 			return false;
 		}

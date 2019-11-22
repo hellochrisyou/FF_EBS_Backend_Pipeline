@@ -3,28 +3,28 @@ schema{
  mutation : Mutation
 }
 
-type Query { 	
-	leagues: [League]
-	league(leagueName: String): League
-	authenticate(dto: DtoInput): String
+type Query {
 }
 
 type Mutation {
 	addPlayer(dto: DtoInput): League,
 	addWaiver(dto: DtoInput): Account,
-	authenticate(dto: DtoInput): String	
+	accountAuthenticate(dto: DtoInput): String	
 	account(accountName: String): Account
 	createLeague(dto: DtoInput): Account,
 	createTeam(dto: DtoInput): Account,
-	league: League
-	leagues: [League]
-	register(dto: DtoInput): String 	
+	getLeague: League,
+	getLeagues: [League],
+	register(dto: DtoInput): Dto,	
 	tradeTeam(dto: DtoInput): Account,	
 	togglePlayer(dto: DtoInput): Account
+	leagues: [League]
+	league(leagueName: String): League
+	authenticate(dto: DtoInput): String
 }
 
 type Account {
-	id: ID!,
+	id: ID,
 	accountName: String,
 	admin: Boolean,
 	master: Boolean,
@@ -43,7 +43,7 @@ type League {
 }
 
 type Team {
-	id: ID!,
+	id: ID,
 	teamName: String,
 	wins: Int,
 	loss: Int,
@@ -58,7 +58,7 @@ type Team {
 }
 
 type Player {
-	id: ID!,
+	id: ID,
 	playerName: String,
 	position: String,
 	active: Boolean,
@@ -74,11 +74,13 @@ type Dto {
 	myTeamName: String,
 	myTeamHelmet: String,
 	otherTeamName: String,
+	token: String,
 	player1: Player,
 	player2: Player
 }
 
 input AccountInput {
+	id: ID!,
 	accountName: String,
 	admin: Boolean,
 	master: Boolean,
@@ -87,6 +89,7 @@ input AccountInput {
 }
 
 input LeagueInput {
+	id: ID,
 	leagueName: String,
 	count: Int,
 	draft_order: Int,
@@ -96,6 +99,7 @@ input LeagueInput {
 }
 
 input TeamInput {
+	id: ID,
 	teamName: String,
 	wins: Int,
 	loss: Int,
@@ -110,6 +114,7 @@ input TeamInput {
 }
 
 input PlayerInput {
+	id: ID,
 	playerName: String,
 	position: String,
 	active: Boolean,
@@ -125,6 +130,7 @@ input DtoInput {
 	myTeamName: String,
 	myTeamHelmet: String,
 	otherTeamName: String,
+	token: String,
 	player1: PlayerInput,
 	player2: PlayerInput
 }

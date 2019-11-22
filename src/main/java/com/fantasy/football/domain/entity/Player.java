@@ -3,7 +3,6 @@ package com.fantasy.football.domain.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,9 +31,9 @@ public class Player extends AuditModel implements Serializable {
 	
 	@ManyToMany(mappedBy = "players")
 	@JsonIgnore
-    private List<Team> teams = new ArrayList<Team>();
+    private List<Team> teams = new ArrayList<>();
 	
-	public Player() {};
+	public Player() {}
 	
 	public Player(String playerName) {
 		this.setPlayerName(playerName);
@@ -150,13 +149,15 @@ public class Player extends AuditModel implements Serializable {
 		if (playerName == null) {
 			if (other.playerName != null)
 				return false;
-		} else if (!playerName.equals(other.playerName))
+		} else if (!playerName.equals(other.playerName)) {
 			return false;
+		}
 		if (position == null) {
 			if (other.position != null)
 				return false;
-		} else if (!position.equals(other.position))
+		} else if (!position.equals(other.position)) {
 			return false;
+		}
 		return true;
 	}
 	

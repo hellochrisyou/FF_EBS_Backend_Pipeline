@@ -38,15 +38,15 @@ public class Account extends AuditModel implements Serializable {
 	private String password = "";
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	List<Role> roles = new ArrayList<Role>();
+	private List<Role> roles = new ArrayList<>();
 
 	// Relationship
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "account_league", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "league_id"))
-	private List<League> leagues = new ArrayList<League>();
+	private List<League> leagues = new ArrayList<>();
 
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Team> teams = new ArrayList<Team>();
+	private List<Team> teams = new ArrayList<>();
 
 	// Constructor
 	public Account() {
@@ -100,7 +100,7 @@ public class Account extends AuditModel implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = new String(password);
+		this.password = password;
 	}
 
 	public List<Role> getRoles() {
