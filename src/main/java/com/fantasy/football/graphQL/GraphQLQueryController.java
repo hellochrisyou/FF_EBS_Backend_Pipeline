@@ -35,7 +35,11 @@ public class GraphQLQueryController {
 	@PostMapping(value = "/graphql", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Object> mutateGraphQL(@RequestBody @Valid final GraphQLDto queryRequest) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		Dto tmpDto = queryRequest.getVariables().get("variables");
 		map.put("dto", queryRequest.getVariables().get("variables"));
+		for (String tmpStr : tmpDto.get) {
+			
+		}
 		ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(queryRequest.getQuery()).variables(map)
 				.build();
 		ExecutionResult executionResult = graphQLProvider.graphQL().execute(executionInput);
