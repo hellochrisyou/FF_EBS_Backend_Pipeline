@@ -12,7 +12,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 	@Override
 	List<Player> findAll();
 
-	Player findByPlayerName(String name);
+	Player findByPlyrName(final String localPlyrName);
 
-	boolean existsByPlayerName(String playerName);
+	boolean existsByPlyrName(final String localPlyrName);
 }

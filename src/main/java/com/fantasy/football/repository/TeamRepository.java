@@ -13,7 +13,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 	@Override
 	List<Team> findAll();
 
-	Team findByTeamName(String name);
+	Team findByTmName(final String localTmName);
 
-	boolean existsByTeamName(String teamName);
+	boolean existsByTmName(final String localTmName);
 }

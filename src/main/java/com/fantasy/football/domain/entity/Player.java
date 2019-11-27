@@ -3,7 +3,9 @@ package com.fantasy.football.domain.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,149 +19,138 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "Player")
 @Table(name = "player")
 public class Player extends AuditModel implements Serializable {
-	
+
 	private static final long serialVersionUID = -8075696392068480911L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	protected Long id;
-	protected String playerName = "default";
-	protected String position = "default";
-	protected boolean active = false;
-	protected boolean flex = false;
-	protected float fantasyPoints = 0;	
-	
+	@Column(unique = true, nullable = false)
+	protected String plyrName = "";
+	@Column(unique = false, nullable = false)
+	protected String pos = "";
+	@Column(unique = false, nullable = false)
+	protected boolean isActive = false;
+	@Column(unique = false, nullable = false)
+	protected boolean isFlex = false;
+	@Column(unique = false, nullable = false)
+	protected float points = 0;
+
 	@ManyToMany(mappedBy = "players")
 	@JsonIgnore
-    private List<Team> teams = new ArrayList<>();
-	
-	public Player() {}
-	
-	public Player(String playerName) {
-		this.setPlayerName(playerName);
+	private List<Team> teams = new ArrayList<>();
+
+	public Player() {
 	}
-	
-	public Player(Player player) {
-		this.setPlayerName(player.getPlayerName());
-		this.setPosition(player.getPosition());
-		this.setFantasyPoints(player.getFantasyPoints());
+
+	public Player(final String localPlyrName) {
+		this.setPlyrName(localPlyrName);
 	}
-	
+
+	public Player(final Player localPlyr) {
+		this.setPlyrName(localPlyr.getPlyrName());
+		this.setPos(localPlyr.getPos());
+		this.setPoints(localPlyr.getPoints());
+	}
+
+	// Basic Getter and Setters
 	public Long getId() {
 		return id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setId(final Long localId) {
+		this.id = localId;
 	}
-	public String getPlayerName() {
-		return playerName;
+	public String getPlyrName() {
+		return plyrName;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setPlyrName(final String localPlyrName) {
+		this.plyrName = localPlyrName;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getPos() {
+		return pos;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+
+	public void setPos(final String localPos) {
+		this.pos = localPos;
 	}
+
 	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	public void toggleActive() {
-		this.active = !this.active;
-	}
-	public float getFantasyPoints() {
-		return fantasyPoints;
+		return isActive;
 	}
 
-	public void setFantasyPoints(float fantasyPoints) {
-		this.fantasyPoints = fantasyPoints;
+	public void setActive(final boolean localIsActive) {
+		this.isActive = localIsActive;
 	}
 
 	public boolean isFlex() {
-		return flex;
+		return isFlex;
 	}
-	public void setFlex(boolean flex) {
-		this.flex = flex;
-	}
-	
 
-    /**
-	 * @return the teams
-	 */
+	public void setFlex(final boolean localIsFlex) {
+		this.isFlex = localIsFlex;
+	}
+
+	public float getPoints() {
+		return points;
+	}
+
+	public void setPoints(final float localPoints) {
+		this.points = localPoints;
+	}
+
 	public List<Team> getTeams() {
 		return teams;
 	}
 
-	/**
-	 * @param teams the teams to set
-	 */
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
+	public void setTeams(final List<Team> localTms) {
+		this.teams = localTms;
 	}
 
-	public void addTeam(Team team) {
-        teams.add(team);
-        team.getPlayers().add(this);
-    }
- 
-    public void removeTeam(Team team) {
-        teams.remove(team);
-        team.getPlayers().remove(this);
-    }
+	public void removeTeam(Team localTm) {
+		teams.remove(localTm);
+		localTm.getPlayers().remove(this);
+	}
+
+//	Relationship getters and setters
+	public void addTeam(Team localTm) {
+		teams.add(localTm);
+		localTm.getPlayers().add(this);
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + (active ? 1231 : 1237);
-		result = prime * result + Float.floatToIntBits(fantasyPoints);
-		result = prime * result + (flex ? 1231 : 1237);
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((playerName == null) ? 0 : playerName.hashCode());
-		result = prime * result + ((position == null) ? 0 : position.hashCode());
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(id, isActive, isFlex, plyrName, points, pos, teams);
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (!(obj instanceof Player))
+		}
+		if (!(obj instanceof Player)) {
 			return false;
+		}
 		Player other = (Player) obj;
-		if (active != other.active)
-			return false;
-		if (Float.floatToIntBits(fantasyPoints) != Float.floatToIntBits(other.fantasyPoints))
-			return false;
-		if (flex != other.flex)
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (playerName == null) {
-			if (other.playerName != null)
-				return false;
-		} else if (!playerName.equals(other.playerName)) {
-			return false;
-		}
-		if (position == null) {
-			if (other.position != null)
-				return false;
-		} else if (!position.equals(other.position)) {
-			return false;
-		}
-		return true;
+		return Objects.equals(id, other.id) && isActive == other.isActive && isFlex == other.isFlex
+				&& Objects.equals(plyrName, other.plyrName)
+				&& Float.floatToIntBits(points) == Float.floatToIntBits(other.points) && Objects.equals(pos, other.pos)
+				&& Objects.equals(teams, other.teams);
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", plyrName=" + plyrName + ", pos=" + pos + ", isActive=" + isActive + ", isFlex="
+				+ isFlex + ", points=" + points + ", teams=" + teams + "]";
+	}
+
 }

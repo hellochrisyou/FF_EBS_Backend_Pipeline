@@ -2,124 +2,155 @@ package com.fantasy.football.domain.model;
 
 import java.util.Objects;
 
-import com.fantasy.football.domain.entity.Player;
-
 public class Dto {
-	String myLeagueName = "leagueName";
-	String myAccountName = "accountName";
-	String myTeamName = "teamName";
-	String myTeamHelmet = "red";
-	String otherTeamName = "otherTeamName";
-	Player player1 = new Player("player1Name");
-	Player player2 = new Player("player2Name");
-	String password = "Password";
-	String token = null;
+	private String acctName = "";
+	private String acctPass = "";
+	private String leagueName = "";
+	private String myTmName = "";
+	private String myTmHelmet = "";
+	private String secTmName = "";
+	private String plyr1Name = "";
+	private String plyr1Pos = "";
+	private String plyr2Name = "";
+	private String plyr2Pos = "";
+	private String token = "";
 
-	
-	public Dto() {}
-	
-	public Dto(Dto dto) {
-		super();
-		this.myLeagueName = dto.myLeagueName;
-		this.myAccountName = dto.myAccountName;
-		this.myTeamName = dto.myTeamName;
-		this.myTeamHelmet = dto.myTeamHelmet;
-		this.otherTeamName = dto.otherTeamName;
-		this.player1 =dto. player1;
-		this.player2 = dto.player2;
-		this.password = dto.password;
-		this.token = dto.token;
+	public Dto() {
 	}
 
-	public String getMyLeagueName() {
-		return myLeagueName;
+	public Dto(final String acctName, final String acctPass, final String leagueName, final String myTmName, final String myTmHelemt, final String secTmName,
+			final String plyr1Name, final String plyr1Pos, final String plyr2Name, final String plyr2Pos, final String token) {
+		this.acctName = acctName;
+		this.acctPass = acctPass;
+		this.leagueName = leagueName;
+		this.myTmName = myTmName;
+		this.myTmHelmet = myTmHelemt;
+		this.secTmName = secTmName;
+		this.plyr1Name = plyr1Name;
+		this.plyr1Pos = plyr1Pos;
+		this.plyr2Name = plyr2Name;
+		this.plyr2Pos = plyr2Pos;
+		this.token = token;
 	}
 
-	public void setMyLeagueName(String myLeagueName) {
-		this.myLeagueName = myLeagueName;
+	public String getAcctName() {
+		return acctName;
 	}
 
-	public String getMyAccountName() {
-		return myAccountName;
+	public void setAcctName(final String localAcctName) {
+		this.acctName = localAcctName;
 	}
 
-	public void setMyAccountName(String myAccountName) {
-		this.myAccountName = myAccountName;
+	public String getAcctPass() {
+		return acctPass;
 	}
 
-	public String getMyTeamName() {
-		return myTeamName;
+	public void setAcctPass(final String localAcctPass) {
+		this.acctPass = localAcctPass;
 	}
 
-	public void setMyTeamName(String myTeamName) {
-		this.myTeamName = myTeamName;
+	public String getLeagueName() {
+		return leagueName;
 	}
 
-	public String getOtherTeamName() {
-		return otherTeamName;
+	public void setLeagueName(final String localLeagueName) {
+		this.leagueName = localLeagueName;
 	}
 
-	public void setOtherTeamName(String otherTeamName) {
-		this.otherTeamName = otherTeamName;
+	public String getMyTmName() {
+		return myTmName;
 	}
 
-	public Player getPlayer1() {
-		return player1;
+	public void setMyTmName(final String localMyTmName) {
+		this.myTmName = localMyTmName;
 	}
 
-	public void setPlayer1(Player player1) {
-		this.player1 = player1;
+	public String getMyTmHelmet() {
+		return myTmHelmet;
 	}
 
-	public Player getPlayer2() {
-		return player2;
+	public void setMyTmHelmet(final String localMyTmHelmet) {
+		this.myTmHelmet = localMyTmHelmet;
 	}
 
-	public void setPlayer2(Player player2) {
-		this.player2 = player2;
+	public String getSecTmName() {
+		return secTmName;
 	}
 
-	public String getMyTeamHelmet() {
-		return myTeamHelmet;
+	public void setSecTmName(final String localSecTmName) {
+		this.secTmName = localSecTmName;
 	}
 
-	public void setMyTeamHelmet(String myTeamHelmet) {
-		this.myTeamHelmet = myTeamHelmet;
+	public String getPlyr1Name() {
+		return plyr1Name;
 	}
 
-	public String getPassword() {
-		return password;
+	public void setPlyr1Name(final String localPlyr1Name) {
+		this.plyr1Name = localPlyr1Name;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getPlyr1Pos() {
+		return plyr1Pos;
+	}
+
+	public void setPlyr1Pos(final String localPlyr1Pos) {
+		this.plyr1Pos = localPlyr1Pos;
+	}
+
+	public String getPlyr2Name() {
+		return plyr2Name;
+	}
+
+	public void setPlyr2Name(final String localPlyr2Name) {
+		this.plyr2Name = localPlyr2Name;
+	}
+
+	public String getPlyr2Pos() {
+		return plyr2Pos;
+	}
+
+	public void setPlyr2Pos(final String localPlyr2Pos) {
+		this.plyr2Pos = localPlyr2Pos;
 	}
 
 	public String getToken() {
 		return token;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setToken(final String localToken) {
+		this.token = localToken;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(myAccountName, myLeagueName, myTeamHelmet, myTeamName, otherTeamName, password, player1,
-				player2, token);
+		return Objects.hash(acctName, acctPass, leagueName, myTmHelmet, myTmName, plyr1Name, plyr1Pos, plyr2Name,
+				plyr2Pos, secTmName, token);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!(obj instanceof Dto))
+		}
+		if (!(obj instanceof Dto)) {
 			return false;
+		}
 		Dto other = (Dto) obj;
-		return Objects.equals(myAccountName, other.myAccountName) && Objects.equals(myLeagueName, other.myLeagueName)
-				&& Objects.equals(myTeamHelmet, other.myTeamHelmet) && Objects.equals(myTeamName, other.myTeamName)
-				&& Objects.equals(otherTeamName, other.otherTeamName) && Objects.equals(password, other.password)
-				&& Objects.equals(player1, other.player1) && Objects.equals(player2, other.player2)
+		return Objects.equals(acctName, other.acctName) && Objects.equals(acctPass, other.acctPass)
+				&& Objects.equals(leagueName, other.leagueName) && Objects.equals(myTmHelmet, other.myTmHelmet)
+				&& Objects.equals(myTmName, other.myTmName) && Objects.equals(plyr1Name, other.plyr1Name)
+				&& Objects.equals(plyr1Pos, other.plyr1Pos) && Objects.equals(plyr2Name, other.plyr2Name)
+				&& Objects.equals(plyr2Pos, other.plyr2Pos) && Objects.equals(secTmName, other.secTmName)
 				&& Objects.equals(token, other.token);
 	}
+
+	@Override
+	public String toString() {
+		return "Dto [acctName=" + acctName + ", acctPass=" + acctPass + ", leagueName=" + leagueName + ", myTmName="
+				+ myTmName + ", myTmHelemt=" + myTmHelmet + ", secTmName=" + secTmName + ", plyr1Name=" + plyr1Name
+				+ ", plyr1Pos=" + plyr1Pos + ", plyr2Name=" + plyr2Name + ", plyr2Pos=" + plyr2Pos + ", token=" + token
+				+ "]";
+	}
+
+
 }

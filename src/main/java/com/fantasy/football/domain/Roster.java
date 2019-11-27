@@ -2,22 +2,21 @@ package com.fantasy.football.domain;
 
 import java.util.List;
 import java.util.Objects;
-
 import com.fantasy.football.domain.entity.Player;
 
 public class Roster {
-	int qb = 0;
-	int rb = 0;
-	int wr = 0;
-	int te = 0;
-	int flex = 0;
-	int def = 0;
-	int k = 0;
+	private int qb = 0;
+	private int rb = 0;
+	private int wr = 0;
+	private int te = 0;
+	private int flex = 0;
+	private int def = 0;
+	private int k = 0;
 
 
-	public Roster(List<Player> players) {
-		for (Player player : players) {
-			switch (player.getPosition()) {
+	public Roster(final List<Player> localPlrs) {
+		for (Player tmpPlyr: localPlrs) {
+			switch (tmpPlyr.getPos()) {
 			case "QB":
 				this.qb++;
 				break;
@@ -45,8 +44,8 @@ public class Roster {
 		}
 	}
 
-	public boolean checkPosition(String position) {
-		switch (position) {
+	public boolean checkPosition(final String localPos) {
+		switch (localPos) {
 		case "QB":
 			return this.checkQb();			
 		case "RB":
@@ -126,7 +125,7 @@ public class Roster {
 		return qb;
 	}
 
-	public void setQb(int qb) {
+	public void setQb(final int qb) {
 		this.qb = qb;
 	}
 
@@ -134,7 +133,7 @@ public class Roster {
 		return rb;
 	}
 
-	public void setRb(int rb) {
+	public void setRb(final int rb) {
 		this.rb = rb;
 	}
 
@@ -142,7 +141,7 @@ public class Roster {
 		return wr;
 	}
 
-	public void setWr(int wr) {
+	public void setWr(final int wr) {
 		this.wr = wr;
 	}
 
@@ -150,7 +149,7 @@ public class Roster {
 		return te;
 	}
 
-	public void setTe(int te) {
+	public void setTe(final int te) {
 		this.te = te;
 	}
 
@@ -158,15 +157,15 @@ public class Roster {
 		return def;
 	}
 
-	public void setDef(int def) {
+	public void setDef(final int def) {
 		this.def = def;
 	}
-
+final 
 	public int getK() {
 		return k;
 	}
 
-	public void setK(int k) {
+	public void setK(final int k) {
 		this.k = k;
 	}
 

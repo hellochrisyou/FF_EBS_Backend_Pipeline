@@ -45,16 +45,16 @@ public class GraphQLProvider {
 
 	private RuntimeWiring buildWiring() {
 		return RuntimeWiring.newRuntimeWiring().type(newTypeWiring("Mutation")
-				.dataFetcher("addPlayer", graphQLDataFetchers.addPlayer())
-				.dataFetcher("addWaiver", graphQLDataFetchers.addWaiver())
-				.dataFetcher("createLeague", graphQLDataFetchers.createLeague())
-				.dataFetcher("createTeam", graphQLDataFetchers.createTeam())
-				.dataFetcher("tradeTeam", graphQLDataFetchers.tradeTeam())
-				.dataFetcher("togglePlayer", graphQLDataFetchers.togglePlayer())
-				.dataFetcher("getLeagues", graphQLDataFetchers.getLeagues())
-				.dataFetcher("getLeagues", graphQLDataFetchers.getLeague())
-				.dataFetcher("accountAuthenticate", graphQLDataFetchers.accountAuthenticate())
-				.dataFetcher("register", graphQLDataFetchers.register()))
+//				.dataFetcher("addPlayer", graphQLDataFetchers.addPlayer())
+//				.dataFetcher("addWaiver", graphQLDataFetchers.addWaiver())
+//				.dataFetcher("createLeague", graphQLDataFetchers.createLeague())
+//				.dataFetcher("createTeam", graphQLDataFetchers.createTeam())
+//				.dataFetcher("tradeTeam", graphQLDataFetchers.tradeTeam())
+//				.dataFetcher("togglePlayer", graphQLDataFetchers.togglePlayer())
+//				.dataFetcher("getLeagues", graphQLDataFetchers.getLeagues())
+//				.dataFetcher("getLeagues", graphQLDataFetchers.getLeague())
+//				.dataFetcher("accountAuthenticate", graphQLDataFetchers.accountAuthenticate())
+				.dataFetcher("registerAcct", graphQLDataFetchers.registerAcct()))
 				.build();
 
 	}

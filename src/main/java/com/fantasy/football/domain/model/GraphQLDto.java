@@ -14,20 +14,16 @@ public class GraphQLDto{
     @NotNull
     private String query;
 
-    private  Map<String , Dto> variables;
+    private  Map<String , Object> variables;
     
     private String operationName;
     
     GraphQLDto() {}
 
-    /**
-     * @param query string
-     */
     public GraphQLDto(String query) {
         super();
         this.query = query;
     }
-
 
     public String getQuery() {
         return this.query;
@@ -46,13 +42,11 @@ public class GraphQLDto{
 		this.operationName = operationName;
 	}
 
-	public Map<String, Dto> getVariables() {
+	public Map<String, Object> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(Map<String, Dto> variables) {
+	public void setVariables(Map<String, Object> variables) {
 		this.variables = variables;
 	}
-
-
 }

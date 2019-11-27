@@ -3,8 +3,10 @@ package com.fantasy.football.domain.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,9 +30,13 @@ public class Team extends AuditModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
-	protected String teamName = "Default";	
-	protected int draftPosition = 0;
+	@Column(unique = true, nullable = false)
+	protected String tmName = "";
+	@Column(unique = false, nullable = false)
+	protected int draftNum= 0;
+	@Column(unique = false, nullable = false)
 	protected String helmet = "";
+	@Column(unique = false, nullable = false)
 	protected float totalPoints = 0;
 	
 	// Relationships
@@ -58,30 +64,30 @@ public class Team extends AuditModel implements Serializable {
 	public Team() {
 	}
 
-	public Team(String teamName) {
-		this.teamName = teamName;
+	public Team(String localTmName) {
+		this.tmName = localTmName;
 	}
 
-	public Team(List<Player> players) {
-		for (Player player : players) {
+	public Team(final List<Player> localPlayers) {
+		for (Player player : localPlayers) {
 			Player tmpPlayer = new Player(player);
 			this.players.add(tmpPlayer);
 		}
 	}
 
-	public Team(Team team) {
-		this.setTeamName(team.getTeamName());		
-		this.setDraftPosition(team.getDraftPosition());
+	public Team(final Team localTm) {
+		this.setTmName(localTm.getTmName());		
+		this.setDraftNum(localTm.getDraftNum());
 		this.setHelmet(this.getHelmet());
-		this.setTotalPoints(team.getTotalPoints());
-		for (Player tmpPlayer : team.getPlayers()) {
+		this.setTotalPoints(localTm.getTotalPoints());
+		for (Player tmpPlayer : localTm.getPlayers()) {
 			this.players.add(tmpPlayer);
 		}
 	}	
 
 	// Relationship getters and setters
-	public void setPlayers(List<Player> players) {
-		this.players = players;
+	public void setPlayers(final List<Player> localPlyrs) {
+		this.players = localPlyrs;
 	}
 
 	public List<Player> getPlayers() {
@@ -90,23 +96,23 @@ public class Team extends AuditModel implements Serializable {
 		}
 		return this.players;
 	}
-	public Player getPlayer(String playerName) {
+	public Player getPlayer(final String localPlyrName) {
 		for (Player player: this.players) {
-			if (player.getPlayerName().equals(playerName)) {
+			if (player.getPlyrName().equals(localPlyrName)) {
 				return player;
 			}
 		}
 		return null;
 	}
 	
-	public void addPlayer(Player player) {
-        players.add(player);
-        player.getTeams().add(this);
+	public void addPlayer(Player localPlyr) {
+        players.add(localPlyr);
+        localPlyr.getTeams().add(this);
     }
  
-    public void removePlayer(Player player) {
-        players.remove(player);
-        player.getTeams().remove(this);
+    public void removePlayer(Player localPlyr) {
+        players.remove(localPlyr);
+        localPlyr.getTeams().remove(this);
     }
  
 	// Basic getters and setters
@@ -114,42 +120,42 @@ public class Team extends AuditModel implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long localId) {
+		this.id = localId;
 	}
 
-	public String getTeamName() {
-		return teamName;
+	
+
+	public String getTmName() {
+		return tmName;
 	}
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public void setTmName(final String tmName) {
+		this.tmName = tmName;
 	}
 
-	public int getDraftPosition() {
-		return draftPosition;
+	public int getDraftNum() {
+		return draftNum;
 	}
 
-	public void setDraftPosition(int draftPosition) {
-		this.draftPosition = draftPosition;
+	public void setDraftNum(final int localDraftNum) {
+		this.draftNum = localDraftNum;
 	}
 
 	public String getHelmet() {
 		return helmet;
 	}
 
-	public void setHelmet(String helmet) {
+	public void setHelmet(final String helmet) {
 		this.helmet = helmet;
 	}
-	
-	
-	
+		
     public float getTotalPoints() {
 		return totalPoints;
 	}
 
-	public void setTotalPoints(float totalPoints) {
-		this.totalPoints = totalPoints;
+	public void setTotalPoints(final float localTotalPoints) {
+		this.totalPoints = localTotalPoints;
 	}
 
 	/**
@@ -162,8 +168,8 @@ public class Team extends AuditModel implements Serializable {
 	/**
 	 * @param league the league to set
 	 */
-	public void setAccount(Account account) {
-		this.account= account;
+	public void setAccount(final Account localAcct) {
+		this.account= localAcct;
 	}
 
     /**
@@ -176,20 +182,44 @@ public class Team extends AuditModel implements Serializable {
 	/**
 	 * @param league the league to set
 	 */
-	public void setLeague(League league) {
-		this.league = league;
+	public void setLeague(final League localLeague) {
+		this.league = localLeague;
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Team)) return false;
-        return id != null && id.equals(((Team) o).getId());
-    }
- 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(account, draftNum, helmet, id, league, players, tmName, totalPoints);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof Team)) {
+			return false;
+		}
+		Team other = (Team) obj;
+		return Objects.equals(account, other.account) && draftNum == other.draftNum
+				&& Objects.equals(helmet, other.helmet) && Objects.equals(id, other.id)
+				&& Objects.equals(league, other.league) && Objects.equals(players, other.players)
+				&& Objects.equals(tmName, other.tmName)
+				&& Float.floatToIntBits(totalPoints) == Float.floatToIntBits(other.totalPoints);
+	}
+
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", tmName=" + tmName + ", draftNum=" + draftNum + ", helmet=" + helmet
+				+ ", totalPoints=" + totalPoints + ", league=" + league + ", account=" + account + ", players="
+				+ players + "]";
+	}
+
+
 
 }

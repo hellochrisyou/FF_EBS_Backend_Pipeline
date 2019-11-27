@@ -19,20 +19,20 @@
 //public class AccountRepositoryIntegrationTest extends ServerFfApplicationTests {
 //
 //	@Autowired
-//	private AccountRepository accountBeanRepo;
+//	private AccountRepository accountRepository;
 //	
 //	@Before
 //    public void setUp() {
-//		accountBeanRepo.save(new Account("findAccountTest"));
-//		accountBeanRepo.save(new Account("findAllTest1"));
-//		accountBeanRepo.save(new Account("findAllTest2"));
-//		accountBeanRepo.save(new Account("findAllTest3"));
-//		accountBeanRepo.save(new Account("ifAccountExistTest"));		
+//		accountRepository.save(new Account("findAccountTest"));
+//		accountRepository.save(new Account("findAllTest1"));
+//		accountRepository.save(new Account("findAllTest2"));
+//		accountRepository.save(new Account("findAllTest3"));
+//		accountRepository.save(new Account("ifAccountExistTest"));		
 //    }
 //
 //	@Test
 //	public void findByAccountNameTest() {
-//		Account found = accountBeanRepo.findByAccountName("findAccountTest");
+//		Account found = accountRepository.findByAccountName("findAccountTest");
 //
 //		assertThat(found.getAccountName()).isEqualTo("findLeagueTest");
 //	}
@@ -45,13 +45,13 @@
 //		accountArray.add(new Account("findAllTest2"));
 //		accountArray.add(new Account("findAllTest3"));
 //		
-//		List<Account> testArray = accountBeanRepo.findAll();
+//		List<Account> testArray = accountRepository.findAll();
 //		
 //		assertThat(accountArray).isEqualTo(testArray);
 //	}
 //
 //	@Test
 //	public void ifAccountExistTest() {
-//		assertThat(true).isEqualTo(accountBeanRepo.existsByAccountName("ifAccountExistTest"));
+//		assertThat(true).isEqualTo(accountRepository.existsByAccountName("ifAccountExistTest"));
 //	}
 //}

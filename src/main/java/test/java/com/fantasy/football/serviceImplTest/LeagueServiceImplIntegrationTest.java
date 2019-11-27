@@ -1,4 +1,4 @@
-//package com.fantasy.football.serviceImplTest;
+//package test.java.com.fantasy.football.serviceImplTest;
 //
 //import static org.assertj.core.api.Assertions.assertThat;
 //
@@ -40,12 +40,12 @@
 //	private CachingService cachingService;
 //	
 //	@MockBean
-//	private AccountRepository accountBeanRepo;
+//	private AccountRepository accountRepository;
 //	
 //	@Before
 //    public void setUp() {
 //		// Creates User
-//		this.accountBeanRepo.save(new Account("Account Name"));
+//		this.accountRepository.save(new Account("Account Name"));
 //		this.cachingService.updateCurrentUser("Account Name");
 //		// Create League
 //		Dto dto = new Dto();

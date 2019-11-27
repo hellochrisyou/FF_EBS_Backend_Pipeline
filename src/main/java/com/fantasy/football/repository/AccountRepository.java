@@ -12,7 +12,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	@Override
 	List<Account> findAll();
 
-	Account findByAccountName(String returnCurrentUser);
+	Account findByAcctName(final String curAcctName);
 	
-	boolean existsByAccountName(String accountName);
+	boolean existsByAcctName(final String curAcctName);
 }

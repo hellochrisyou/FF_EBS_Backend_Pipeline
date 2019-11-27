@@ -19,7 +19,7 @@
 //	private CachingService cacheingService;
 //
 //	@Autowired
-//	private AccountRepository accountRepository;
+//	private AccountRepository accountBeanRepo;
 //
 //	@Override
 //	@Transactional
@@ -27,7 +27,7 @@
 //		// NEED TO THINK IF I NEED THIS WITH NEW AUTHENTICATION NOW
 //
 //		Account thisAccount = new Account();
-//		return this.accountRepository.save(thisAccount);
+//		return this.accountBeanRepo.save(thisAccount);
 //
 //	}
 //}

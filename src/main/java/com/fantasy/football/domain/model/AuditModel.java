@@ -18,39 +18,36 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(
-        value = {"createdAt", "updatedAt"},
-        allowGetters = true
-)
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
 public abstract class AuditModel implements Serializable {
-	
-	
-	
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @CreatedDate
-    private Date createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", nullable = false)
-    @LastModifiedDate
-    private Date updatedAt;
+	private static final long serialVersionUID = 1L;
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_at", nullable = false, updatable = false)
+	@CreatedDate
+	private Date createdAt;
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_at", nullable = false)
+	@LastModifiedDate
+	private Date updatedAt;
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
+	public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public void setCreatedAt(final Date localCreatedAt) {
+		this.createdAt = localCreatedAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(final Date localUpdatedAt) {
+		this.updatedAt = localUpdatedAt;
+	}
 
 	@Override
 	public int hashCode() {
@@ -58,14 +55,18 @@ public abstract class AuditModel implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Object localObj) {
+		if (this == localObj)
 			return true;
-		if (!(obj instanceof AuditModel))
+		if (!(localObj instanceof AuditModel))
 			return false;
-		AuditModel other = (AuditModel) obj;
+		AuditModel other = (AuditModel) localObj;
 		return Objects.equals(createdAt, other.createdAt) && Objects.equals(updatedAt, other.updatedAt);
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "AuditModel [createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+
 }

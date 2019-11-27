@@ -9,9 +9,9 @@ public class CustomException extends RuntimeException {
   private final String message;
   private final HttpStatus httpStatus;
 
-  public CustomException(String message, HttpStatus httpStatus) {
-    this.message = message;
-    this.httpStatus = httpStatus;
+  public CustomException(String localMessage, HttpStatus localHttpStatus) {
+    this.message = localMessage;
+    this.httpStatus = localHttpStatus;
   }
 
   @Override

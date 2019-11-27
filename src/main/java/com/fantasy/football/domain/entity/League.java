@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,19 +27,26 @@ public class League extends AuditModel implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private Long id;
+	@Column(unique = true, nullable = false)
+	private String leagueName = "";
+	@Column(unique = false, nullable = false)
 	private int count = 0;
-	private int draftOrder = 1;
-	private String leagueName = "Default";
-	private int startWeek = 1;	
-	private int currentWeek = 1;	
+	@Column(unique = false, nullable = false)
+	private int draftNum = 1;	
+	@Column(unique = false, nullable = false)
+	private int startWk = 1;	
+	@Column(unique = false, nullable = false)
+	private int curWeek = 1;	
+	@Column(unique = false, nullable = false)
 	private String status = "Created";
 	
 	public League() {		
 	}
 	
-	public League(String leagueName) {
-		this.setLeagueName(leagueName);
+	public League(String localLeagueName) {
+		this.setLeagueName(localLeagueName);
 	} 
 	
 	//Relationship
@@ -54,13 +62,13 @@ public class League extends AuditModel implements Serializable {
         accounts.add(account);
         account.getLeagues().add(this);
     }
-	public void removeAccount(Account account) {
-        accounts.remove(account);
-        account.getLeagues().remove(this);
+	public void removeAccount(Account localAcct) {
+        accounts.remove(localAcct);
+        localAcct.getLeagues().remove(this);
     }	
-	public Account getAccount(String accountName) {
+	public Account getAccount(String localAccountName) {
 		for (Account account: this.accounts) {
-			if (account.getAccountName().equals(accountName)) {
+			if (account.getAcctName().equals(localAccountName)) {
 				return account;
 			}
 		}
@@ -69,43 +77,35 @@ public class League extends AuditModel implements Serializable {
 	public void removeAllAccounts() {
 		this.accounts.clear();
 	}
-	public Team getTeam(String teamName) {
+	public Team getTeam(final String localTmName) {
 		for (Team team : teams) {
-			if (team.getTeamName().equals(teamName)) {
+			if (team.getTmName().equals(localTmName)) {
 				return team;
 			}
 		}
 		return null;
 	}
-	/**
-	 * @return the teams
-	 */
+
 	public List<Team> getTeams() {
 		return teams;
 	}
-	public void addTeam(Team localTeam) {
-		 teams.add(localTeam);
-	     localTeam.setLeague(this);
+	public void addTeam(Team localTm) {
+		 teams.add(localTm);
+		 localTm.setLeague(this);
      }
-	/**
-	 * @param teams the teams to set
-	 */
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
+
+	public void setTeams(final List<Team> localTeams) {
+		this.teams = localTeams;
 	}
 
-	/**
-	 * @return the accounts
-	 */
+
 	public List<Account> getAccounts() {
 		return accounts;
 	}
 
-	/**
-	 * @param accounts the accounts to set
-	 */
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
+
+	public void setAccounts(final List<Account> localAccts) {
+		this.accounts = localAccts;
 	}
 
 	// Basic Getter and Setters
@@ -120,43 +120,43 @@ public class League extends AuditModel implements Serializable {
 		return leagueName;
 	}
 
-	public void setLeagueName(String leagueName) {
-		this.leagueName = leagueName;
+	public void setLeagueName(final String localLeagueName) {
+		this.leagueName = localLeagueName;
 	}
 
-	public int getStartWeek() {
-		return startWeek;
+	public int getStartWk() {
+		return startWk;
 	}
-	public void setStartWeek(int startWeek) {
-		this.startWeek = startWeek;
+	public void setStartWk(final int localStartWk) {
+		this.startWk = localStartWk;
 	}
 	public int getCount() {
 		return count;
 	}
-	public void setCount(int count) {
+	public void setCount(final int count) {
 		this.count = count;
 	}
 
-	public int getCurrentWeek() {
-		return currentWeek;
+	public int getCurWeek() {
+		return curWeek;
 	}
 
-	public void setCurrentWeek(int currentWeek) {
-		this.currentWeek = currentWeek;
+	public void setCurWeek(final int localCurWeek) {
+		this.curWeek = localCurWeek;
 	}
 
-	public int getDraftOrder() {
-		return draftOrder;
+	public int getDraftNum() {
+		return draftNum;
 	}
 
-	public void setDraftOrder(int draftOrder) {
-		this.draftOrder = draftOrder;
+	public void setDraftNum(final int localDraftNum) {
+		this.draftNum = localDraftNum;
 	}
 
 	public String getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 
@@ -165,24 +165,36 @@ public class League extends AuditModel implements Serializable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ Objects.hash(accounts, count, currentWeek, draftOrder, id, leagueName, startWeek, status, teams);
+				+ Objects.hash(accounts, count, curWeek, draftNum, id, leagueName, startWk, status, teams);
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (!(obj instanceof League))
+		}
+		if (!(obj instanceof League)) {
 			return false;
+		}
 		League other = (League) obj;
-		return Objects.equals(accounts, other.accounts) && count == other.count && currentWeek == other.currentWeek
-				&& draftOrder == other.draftOrder && Objects.equals(id, other.id)
-				&& Objects.equals(leagueName, other.leagueName) && startWeek == other.startWeek
+		return Objects.equals(accounts, other.accounts) && count == other.count && curWeek == other.curWeek
+				&& draftNum == other.draftNum && Objects.equals(id, other.id)
+				&& Objects.equals(leagueName, other.leagueName) && startWk == other.startWk
 				&& Objects.equals(status, other.status) && Objects.equals(teams, other.teams);
 	}
+
+	@Override
+	public String toString() {
+		return "League [id=" + id + ", leagueName=" + leagueName + ", count=" + count + ", draftNum=" + draftNum
+				+ ", startWk=" + startWk + ", curWeek=" + curWeek + ", status=" + status + ", accounts=" + accounts
+				+ ", teams=" + teams + "]";
+	}
+
+	
 	
 	
 	

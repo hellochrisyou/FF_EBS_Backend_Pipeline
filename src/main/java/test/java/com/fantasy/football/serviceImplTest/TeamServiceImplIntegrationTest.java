@@ -1,14 +1,8 @@
-//package com.fantasy.football.serviceImplTest;
+//package test.java.com.fantasy.football.serviceImplTest;
 //
 //import static org.assertj.core.api.Assertions.assertThat;
 //
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//
-//import javax.transaction.Transactional;
-//
-//import org.junit.Before;
+//import org.aspectj.lang.annotation.Before;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +12,7 @@
 //import org.springframework.test.context.junit4.SpringRunner;
 //
 //import com.fantasy.football.cache.CachingService;
-//import com.fantasy.football.domain.Roster;
 //import com.fantasy.football.domain.entity.Account;
-//import com.fantasy.football.domain.entity.League;
-//import com.fantasy.football.domain.entity.Player;
-//import com.fantasy.football.domain.entity.Team;
 //import com.fantasy.football.domain.model.Dto;
 //import com.fantasy.football.repository.AccountRepository;
 //import com.fantasy.football.repository.LeagueRepository;
@@ -55,7 +45,7 @@
 //	private LeagueRepository leagueRepository;
 //
 //	@MockBean
-//	private AccountRepository accountBeanRepo;
+//	private AccountRepository accountRepository;
 //
 //	@MockBean
 //	private PlayerRepository playerRepository;
@@ -64,7 +54,7 @@
 //	public void setUp() {
 //		Dto dto = new Dto();
 //		// Account Creation
-//		this.accountBeanRepo.save(new Account("Account Name"));
+//		this.accountRepository.save(new Account("Account Name"));
 //		this.cachingService.updateCurrentUser("Account Name");
 //		// League Creation
 //		this.leagueService.createLeague(dto);
